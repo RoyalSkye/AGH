@@ -1,10 +1,10 @@
-# Clarke and Wright Savings
-import copy
+import random
 import math
 import torch
 import pickle
 import argparse
 import pprint as pp
+import numpy as np
 from tqdm import tqdm
 from utils import move_to, load_problem
 from torch.utils.data import DataLoader
@@ -69,7 +69,10 @@ def inner(input_, problem, opt):
     return cost, state.serve_time
 
 
-def CWS(dataset, opt, fleet_info, distance, problem):
+def cws(dataset, opt, fleet_info, distance, problem):
+    """
+    Clarke and Wright Savings (CWS)
+    """
     cost = []
     for bat in tqdm(DataLoader(dataset, batch_size=opt.val_size), disable=opt.no_progress_bar):
         bat_cost = []
@@ -106,23 +109,52 @@ def CWS(dataset, opt, fleet_info, distance, problem):
     print('Validation overall avg_cost: {} +- {}'.format(avg_cost, torch.std(cost) / math.sqrt(len(cost))))
 
 
+def insertion(val_dataset, opts):
+    from nets.attention_model import AttentionModel
+    from train import rollout
+    model = AttentionModel(
+        embedding_dim=128,
+        hidden_dim=128,
+        problem=opts.problem,
+        n_encode_layers=3,
+        mask_inner=True,
+        mask_logits=True,
+        normalization='batch',
+        tanh_clipping=10.,
+        checkpoint_encoder=False,
+        shrink_size=None,
+        wo_time=False,
+        rnn_time=True
+    ).to(opts.device)
+    opts.eval_batch_size = opts.val_size
+    cost = rollout(model, val_dataset, opts, opts.val_method)
+    cost = cost.sum(1)
+    avg_cost = cost.mean()
+    print('Validation overall avg_cost: {} +- {}'.format(avg_cost, torch.std(cost) / math.sqrt(len(cost))))
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--filename", help="Filename of the dataset to load (ignores datadir)")
-    parser.add_argument("--problem", type=str, default='agh',
-                        help="only support airport ground handling in this code")
-    parser.add_argument('--graph_size', type=int, default=20,
-                        help="Sizes of problem instances (20, 50, 100)")
-    parser.add_argument('--val_size', type=int, default=1000,
-                        help='Number of instances used for reporting validation performance')
+    parser.add_argument("--problem", type=str, default='agh', help="only support airport ground handling in this code")
+    parser.add_argument('--graph_size', type=int, default=20, help="Sizes of problem instances (20, 50, 100)")
+    parser.add_argument('--val_method', type=str, default='cws', choices=['cws', 'nearest', 'farthest'])
+    parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
+    parser.add_argument('--seed', type=int, default=1234, help='Random seed to use')
     parser.add_argument('--no_progress_bar', action='store_true', help='Disable progress bar')
 
     opts = parser.parse_args()
 
     opts.use_cuda = torch.cuda.is_available()
-    opts.device = torch.device("cuda:0" if opts.use_cuda else "cpu")
+    opts.device = torch.device("cuda" if opts.use_cuda else "cpu")
 
     pp.pprint(vars(opts))
+
+    # Set the random seed
+    random.seed(opts.seed)
+    np.random.seed(opts.seed)
+    torch.manual_seed(opts.seed)
+    torch.cuda.manual_seed_all(opts.seed)
 
     # Figure out what's the problem
     problem_ = load_problem(opts.problem)
@@ -135,4 +167,10 @@ if __name__ == "__main__":
         distance_ = pickle.load(file_)
     distance_ = torch.tensor(list(distance_.values()))
 
-    CWS(val_dataset, opts, fleet_info_, distance_, problem_)
+    print('Validating dataset: {}'.format(opts.filename))
+    if opts.val_method == "cws":
+        cws(val_dataset, opts, fleet_info_, distance_, problem_)
+    elif opts.val_method in ['nearest', 'farthest']:
+        insertion(val_dataset, opts)
+    else:
+        print(">> Unsupported val method!")

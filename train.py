@@ -28,9 +28,9 @@ def validate(model, dataset, opts):
     return avg_cost
 
 
-def rollout(model, dataset, opts):
+def rollout(model, dataset, opts, val_method="greedy"):
     # Put in greedy evaluation mode!
-    set_decode_type(model, "greedy")
+    set_decode_type(model, val_method)
     model.eval()
 
     if model.is_agh:
@@ -39,8 +39,6 @@ def rollout(model, dataset, opts):
             bat_cost = []
             bat_tw_left = bat['arrival'].repeat(len(model.fleet_info['next_duration']) + 1, 1, 1).to(opts.device)
             bat_tw_right = bat['departure']
-            fleet_seq_embed = [[torch.zeros(opts.eval_batch_size, 1, opts.embedding_dim, device=opts.device).float()]
-                               for _ in range(len(model.fleet_info['next_duration']) + 1)]
             for f in model.fleet_info['order']:
                 # merge more data
                 next_duration = torch.tensor(
@@ -61,16 +59,8 @@ def rollout(model, dataset, opts):
                     model.pre_tw = None
 
                 # evaluate
-                if opts.agh_train_trick == 5 or opts.agh_train_trick == 6 or \
-                        opts.agh_train_trick == 9 or opts.agh_train_trick == 10:
-                    with torch.no_grad():
-                        fleet_cost, _, serve_time, seq_embed = model(
-                            move_to(fleet_bat, opts.device), trick_5=True,
-                            pre_fleet_seq=torch.cat(fleet_seq_embed[model.fleet_info['precedence'][f]], 1).mean(1)[:, None, :])
-                        fleet_seq_embed[model.fleet_info['precedence'][f] + 1].append(seq_embed)
-                else:
-                    with torch.no_grad():
-                        fleet_cost, _, serve_time = model(move_to(fleet_bat, opts.device))
+                with torch.no_grad():
+                    fleet_cost, _, serve_time = model(move_to(fleet_bat, opts.device))
                 bat_cost.append(fleet_cost.data.cpu().view(-1, 1))
 
                 # update tw_left

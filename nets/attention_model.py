@@ -330,7 +330,7 @@ class AttentionModel(nn.Module):
             log_p, mask = self._get_log_p(fixed, state)
 
             # Select the indices of the next nodes in the sequences, result (batch_size) long
-            selected = self._select_node(log_p.exp()[:, 0, :], mask[:, 0, :])  # Squeeze out steps dimension
+            selected = self._select_node(log_p.exp()[:, 0, :], mask[:, 0, :], state)  # Squeeze out steps dimension
 
             state = state.update(selected)
 
@@ -370,7 +370,7 @@ class AttentionModel(nn.Module):
             batch_rep, iter_rep
         )
 
-    def _select_node(self, probs, mask):
+    def _select_node(self, probs, mask, state=None):
 
         assert (probs == probs).all(), "Probs should not contain any nans"
 
@@ -378,18 +378,27 @@ class AttentionModel(nn.Module):
             _, selected = probs.max(1)
             assert not mask.gather(1, selected.unsqueeze(
                 -1)).data.any(), "Decode greedy: infeasible action has maximum probability"
-
         elif self.decode_type == "sampling":
             selected = probs.multinomial(1).squeeze(1)
-
             # Check if sampling went OK, can go wrong due to bug on GPU
             # See https://discuss.pytorch.org/t/bad-behavior-of-multinomial-function/10232
             while mask.gather(1, selected.unsqueeze(-1)).data.any():
                 print('Sampled bad values, resampling!')
                 selected = probs.multinomial(1).squeeze(1)
-
+        elif self.decode_type in ["nearest", "farthest"]:
+            batch_size, n_loc = mask.size()
+            prev_a = state.coords[state.ids, state.prev_a]  # [batch_size, 1]
+            distance_index = state.NODE_SIZE * prev_a.expand(batch_size, n_loc) + state.coords  # [batch_size, n_loc]
+            distance = torch.gather(self.distance.repeat(batch_size, 1), 1, distance_index)  # [batch_size, n_loc]
+            if self.decode_type == "nearest":
+                distance[mask] = 10000
+                _, selected = distance.min(1)
+            else:
+                distance[mask] = -10000
+                _, selected = distance.max(1)
         else:
             assert False, "Unknown decode type"
+
         return selected
 
     def _precompute(self, embeddings, fleet, num_steps=1):
@@ -558,7 +567,7 @@ class AttentionModel(nn.Module):
         # Compute the glimpse, rearrange dimensions so the dimensions are (n_heads, batch_size, num_steps, 1, key_size)
         glimpse_Q = query.view(batch_size, num_steps, self.n_heads, 1, key_size).permute(2, 0, 1, 3, 4)
 
-        # Batch matrix multiplication to compute compatibilities (n_heads, batch_size, num_steps, graph_size)
+        # Batch matrix multiplication to compute compatibilities (n_heads, batch_size, num_steps, 1, graph_size)
         compatibility = torch.matmul(glimpse_Q, glimpse_K.transpose(-2, -1)) / math.sqrt(glimpse_Q.size(-1))
         if self.mask_inner:
             assert self.mask_logits, "Cannot mask inner without masking logits"

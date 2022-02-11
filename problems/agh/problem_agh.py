@@ -98,7 +98,6 @@ class AGHDataset(Dataset):
         self.data_set = []
         if filename is not None:
             assert os.path.splitext(filename)[1] == '.pkl'
-
             with open(filename, 'rb') as f:
                 data = pickle.load(f)
         else:
