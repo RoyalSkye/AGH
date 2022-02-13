@@ -28,9 +28,9 @@ def validate(model, dataset, opts):
     return avg_cost
 
 
-def rollout(model, dataset, opts, val_method="greedy"):
+def rollout(model, dataset, opts):
     # Put in greedy evaluation mode!
-    set_decode_type(model, val_method)
+    set_decode_type(model, "greedy")
     model.eval()
 
     if model.is_agh:

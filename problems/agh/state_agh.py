@@ -25,6 +25,7 @@ class StateAGH(NamedTuple):
     cur_coord: torch.Tensor
     cur_free_time: torch.Tensor
     serve_time: torch.Tensor
+    tour: torch.Tensor
     i: torch.Tensor  # Keeps track of step
 
     VEHICLE_CAPACITY = 1.0  # Hardcoded
@@ -48,6 +49,7 @@ class StateAGH(NamedTuple):
             lengths=self.lengths[key],
             cur_coord=self.cur_coord[key],
             cur_free_time=self.cur_free_time[key],
+            tour=self.tour[key],
             serve_time=self.serve_time[key],
         )
 
@@ -86,6 +88,7 @@ class StateAGH(NamedTuple):
             cur_coord=torch.zeros_like(loc[:, :1], device=loc.device),  # Add step dimension
             cur_free_time=torch.full((batch_size, 1), -60, device=loc.device),  # max_distance=2501.98 / SPEED = 22.74m
             serve_time=torch.zeros(batch_size, n_loc+1, device=loc.device).float(),
+            tour=torch.zeros(batch_size, 1, dtype=torch.long, device=loc.device),
             i=torch.zeros(1, dtype=torch.int64, device=loc.device)  # Vector with length num_steps
         )
 
@@ -126,10 +129,12 @@ class StateAGH(NamedTuple):
 
         serve_time = self.serve_time.scatter_(1, selected, cur_free_time.float())
 
+        tour = torch.cat((self.tour, selected), dim=1)
+
         return self._replace(
             prev_a=prev_a, used_capacity=used_capacity, visited_=visited_,
             lengths=lengths, cur_coord=cur_coord, i=self.i + 1,
-            cur_free_time=cur_free_time, serve_time=serve_time
+            cur_free_time=cur_free_time, tour=tour, serve_time=serve_time
         )
 
     def all_finished(self):

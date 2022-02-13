@@ -330,7 +330,7 @@ class AttentionModel(nn.Module):
             log_p, mask = self._get_log_p(fixed, state)
 
             # Select the indices of the next nodes in the sequences, result (batch_size) long
-            selected = self._select_node(log_p.exp()[:, 0, :], mask[:, 0, :], state)  # Squeeze out steps dimension
+            selected = self._select_node(log_p.exp()[:, 0, :], mask[:, 0, :])  # Squeeze out steps dimension
 
             state = state.update(selected)
 
@@ -370,7 +370,7 @@ class AttentionModel(nn.Module):
             batch_rep, iter_rep
         )
 
-    def _select_node(self, probs, mask, state=None):
+    def _select_node(self, probs, mask):
 
         assert (probs == probs).all(), "Probs should not contain any nans"
 
@@ -385,17 +385,6 @@ class AttentionModel(nn.Module):
             while mask.gather(1, selected.unsqueeze(-1)).data.any():
                 print('Sampled bad values, resampling!')
                 selected = probs.multinomial(1).squeeze(1)
-        elif self.decode_type in ["nearest", "farthest"]:
-            batch_size, n_loc = mask.size()
-            prev_a = state.coords[state.ids, state.prev_a]  # [batch_size, 1]
-            distance_index = state.NODE_SIZE * prev_a.expand(batch_size, n_loc) + state.coords  # [batch_size, n_loc]
-            distance = torch.gather(self.distance.repeat(batch_size, 1), 1, distance_index)  # [batch_size, n_loc]
-            if self.decode_type == "nearest":
-                distance[mask] = 10000
-                _, selected = distance.min(1)
-            else:
-                distance[mask] = -10000
-                _, selected = distance.max(1)
         else:
             assert False, "Unknown decode type"
 
