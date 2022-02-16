@@ -11,11 +11,11 @@ def get_options(args=None):
     # Data
     parser.add_argument('--problem', default='agh', help="The problem to solve, default 'tsp'")
     parser.add_argument('--graph_size', type=int, default=20, help="The size of the problem graph")
-    parser.add_argument('--batch_size', type=int, default=512, help='Number of instances per batch during training')
-    parser.add_argument('--epoch_size', type=int, default=1280000, help='Number of instances per epoch during training')
+    parser.add_argument('--batch_size', type=int, default=64, help='Number of instances per batch during training')
+    parser.add_argument('--epoch_size', type=int, default=12800, help='Number of instances per epoch during training')
     parser.add_argument('--val_size', type=int, default=1000,
                         help='Number of instances used for reporting validation performance')
-    parser.add_argument('--val_dataset', type=str, default=None, help='Dataset file to use for validation')
+    parser.add_argument('--val_dataset', type=str, default="./data/agh/agh20_validation_seed4321.pkl", help='Dataset file to use for validation')
 
     # Model
     parser.add_argument('--model', default='attention', help="Model, 'attention' (default) or 'pointer'")
@@ -46,7 +46,7 @@ def get_options(args=None):
     parser.add_argument('--bl_warmup_epochs', type=int, default=0,
                         help='Number of epochs to warmup the baseline, default None means 1 for rollout (exponential '
                              'used for warmup phase), 0 otherwise. Can only be used with rollout baseline.')
-    parser.add_argument('--eval_batch_size', type=int, default=1024,
+    parser.add_argument('--eval_batch_size', type=int, default=1000,
                         help="Batch size to use during (baseline) evaluation")
     parser.add_argument('--checkpoint_encoder', action='store_true',
                         help='Set to decrease memory usage by checkpointing encoder')
@@ -74,7 +74,6 @@ def get_options(args=None):
 
     # How to train the AM on AGH problem
     parser.add_argument('--fine_tune', action='store_true', help='change a trick and fine tune the model.')
-    parser.add_argument('--gamma', type=float, default=0.7, help='discount factor use in trick 8')
     parser.add_argument('--wo_time', action='store_true', help='remove time information in the feature')
     parser.add_argument('--rnn_time', action='store_true', help='remove time information in the feature')
 

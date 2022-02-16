@@ -51,7 +51,9 @@ def eval_dataset_mp(args):
 
 def eval_dataset(dataset_path, width, softmax_temp, opts):
     # Even with multiprocessing, we load the model here since it contains the name where to write results
+    start_time = time.time()
     model, _ = load_model(opts.model)
+    assert model.is_agh, "For other problem, please refer to https://github.com/wouterkool/attention-learn-to-route/blob/master/eval.py"
     use_cuda = torch.cuda.is_available() and not opts.no_cuda
     if opts.multiprocessing:
         assert use_cuda, "Can only do multiprocessing with cuda"
@@ -65,42 +67,12 @@ def eval_dataset(dataset_path, width, softmax_temp, opts):
             )))
 
     else:
-        device = torch.device("cuda:0" if use_cuda else "cpu")
+        device = torch.device("cuda" if use_cuda else "cpu")
         dataset = model.problem.make_dataset(filename=dataset_path, num_samples=opts.val_size, offset=opts.offset)
         results = _eval_dataset(model, dataset, width, softmax_temp, opts, device)
 
-    # This is parallelism, even if we use multiprocessing (we report as if we did not use multiprocessing, e.g. 1 GPU)
-    parallelism = opts.eval_batch_size
-
-    costs, tours, durations = zip(*results)  # Not really costs since they should be negative
-
-    print("Average cost: {} +- {}".format(np.mean(costs), 2 * np.std(costs) / np.sqrt(len(costs))))
-    print("Average serial duration: {} +- {}".format(
-        np.mean(durations), 2 * np.std(durations) / np.sqrt(len(durations))))
-    print("Average parallel duration: {}".format(np.mean(durations) / parallelism))
-    print("Calculated total duration: {}".format(timedelta(seconds=int(np.sum(durations) / parallelism))))
-
-    dataset_basename, ext = os.path.splitext(os.path.split(dataset_path)[-1])
-    model_name = "_".join(os.path.normpath(os.path.splitext(opts.model)[0]).split(os.sep)[-2:])
-    if opts.o is None:
-        results_dir = os.path.join(opts.results_dir, model.problem.NAME, dataset_basename)
-        os.makedirs(results_dir, exist_ok=True)
-
-        out_file = os.path.join(results_dir, "{}-{}-{}{}-t{}-{}-{}{}".format(
-            dataset_basename, model_name,
-            opts.decode_strategy,
-            width if opts.decode_strategy != 'greedy' else '',
-            softmax_temp, opts.offset, opts.offset + len(costs), ext
-        ))
-    else:
-        out_file = opts.o
-
-    assert opts.f or not os.path.isfile(
-        out_file), "File already exists! Try running with -f option to overwrite."
-
-    save_dataset((results, parallelism), out_file)
-
-    return costs, tours, durations
+    print("Using {} strategy: Average cost: {} +- {}".format(opts.decode_strategy, torch.mean(results), torch.std(results) / math.sqrt(len(results))))
+    print(">> End of validation within {:.2f}s".format(time.time()-start_time))
 
 
 def _eval_dataset(model, dataset, width, softmax_temp, opts, device):
@@ -114,91 +86,94 @@ def _eval_dataset(model, dataset, width, softmax_temp, opts, device):
 
     dataloader = DataLoader(dataset, batch_size=opts.eval_batch_size)
 
-    results = []
+    cost = []
     for batch in tqdm(dataloader, disable=opts.no_progress_bar):
+        batch_cost = []
         batch = move_to(batch, device)
-
-        start = time.time()
         with torch.no_grad():
-            if opts.decode_strategy in ('sample', 'greedy'):
-                if opts.decode_strategy == 'greedy':
-                    assert width == 0, "Do not set width when using greedy"
-                    assert opts.eval_batch_size <= opts.max_calc_batch_size, \
-                        "eval_batch_size should be smaller than calc batch size"
-                    batch_rep = 1
-                    iter_rep = 1
-                elif width * opts.eval_batch_size > opts.max_calc_batch_size:
-                    assert opts.eval_batch_size == 1
-                    assert width % opts.max_calc_batch_size == 0
-                    batch_rep = opts.max_calc_batch_size
-                    iter_rep = width // opts.max_calc_batch_size
+            # preprocess data
+            bat_tw_left = batch['arrival'].repeat(len(model.fleet_info['next_duration']) + 1, 1, 1).to(device)
+            bat_tw_right = batch['departure']
+            for f in model.fleet_info['order']:
+                next_duration = torch.tensor(
+                    model.fleet_info['next_duration'][model.fleet_info['precedence'][f]],
+                    device=batch['type'].device).repeat(batch['loc'].size(0), 1)
+                tw_right = bat_tw_right - torch.gather(next_duration, 1, batch['type'])
+                tw_right = torch.cat((torch.full_like(tw_right[:, :1], 1441), tw_right), dim=1)
+                tw_left = bat_tw_left[model.fleet_info['precedence'][f]]
+                tw_left = torch.cat((torch.zeros_like(tw_left[:, :1]), tw_left), dim=1)
+                duration = torch.tensor(model.fleet_info['duration'][f],
+                                        device=batch['type'].device).repeat(batch['loc'].size(0), 1)
+                fleet_bat = {'loc': batch['loc'], 'demand': batch['demand'][:, f - 1, :],
+                             'distance': model.distance.expand(batch['loc'].size(0), len(model.distance)),
+                             'duration': torch.gather(duration, 1, batch['type']),
+                             'tw_right': tw_right, 'tw_left': tw_left,
+                             'fleet': torch.full((batch['loc'].size(0), 1), f - 1)}
+                if model.rnn_time:
+                    model.pre_tw = None
+
+                if opts.decode_strategy in ('sample', 'greedy'):
+                    if opts.decode_strategy == 'greedy':
+                        assert width == 0, "Do not set width when using greedy"
+                        assert opts.eval_batch_size <= opts.max_calc_batch_size, \
+                            "eval_batch_size should be smaller than calc batch size"
+                        batch_rep = 1
+                        iter_rep = 1
+                    elif width * opts.eval_batch_size > opts.max_calc_batch_size:
+                        assert opts.eval_batch_size == 1
+                        assert width % opts.max_calc_batch_size == 0
+                        batch_rep = opts.max_calc_batch_size
+                        iter_rep = width // opts.max_calc_batch_size
+                    else:
+                        # sample for agh: for each fleet, sample batch_rep * iter_rep solutions,
+                        # choose the best one, and go for next loop (fleet), otherwise exponential complexity!
+                        batch_rep = width
+                        iter_rep = 1
+                    assert batch_rep > 0
+                    sequences, costs, serve_time = model.sample_many(fleet_bat, batch_rep=batch_rep, iter_rep=iter_rep)
+                    batch_size = len(costs)
+                    batch_cost.append(costs.data.cpu().view(-1, 1))
                 else:
-                    batch_rep = width
-                    iter_rep = 1
-                assert batch_rep > 0
-                # This returns (batch_size, iter_rep shape)
-                sequences, costs = model.sample_many(batch, batch_rep=batch_rep, iter_rep=iter_rep)
-                batch_size = len(costs)
-                ids = torch.arange(batch_size, dtype=torch.int64, device=costs.device)
-            else:
-                assert opts.decode_strategy == 'bs'
+                    assert opts.decode_strategy == 'bs'
+                    assert opts.problem != 'agh', 'not supported currently!'
 
-                assert opts.problem != 'agh'
+                    cum_log_p, sequences, costs, ids, batch_size = model.beam_search(
+                        batch, beam_size=width,
+                        compress_mask=opts.compress_mask,
+                        max_calc_batch_size=opts.max_calc_batch_size
+                    )
 
-                cum_log_p, sequences, costs, ids, batch_size = model.beam_search(
-                    batch, beam_size=width,
-                    compress_mask=opts.compress_mask,
-                    max_calc_batch_size=opts.max_calc_batch_size
-                )
+                # update tw_left
+                bat_tw_left[model.fleet_info['precedence'][f] + 1] = torch.max(bat_tw_left[model.fleet_info['precedence'][f] + 1], serve_time[:, 1:])
 
-        if sequences is None:
-            sequences = [None] * batch_size
-            costs = [math.inf] * batch_size
-        else:
-            sequences, costs = get_best(
-                sequences.cpu().numpy(), costs.cpu().numpy(),
-                ids.cpu().numpy() if ids is not None else None,
-                batch_size
-            )
-        duration = time.time() - start
-        for seq, cost in zip(sequences, costs):
-            if model.problem.NAME == "tsp":
-                seq = seq.tolist()  # No need to trim as all are same length
-            elif model.problem.NAME in ("cvrp", "sdvrp"):
-                seq = np.trim_zeros(seq).tolist() + [0]  # Add depot
-            elif model.problem.NAME in ("op", "pctsp"):
-                seq = np.trim_zeros(seq)  # We have the convention to exclude the depot
-            else:
-                assert False, "Unkown problem: {}".format(model.problem.NAME)
-            # Note VRP only
-            results.append((cost, seq, duration))
+            batch_cost = torch.cat(batch_cost, 1)  # [batch_size, 10]
+            cost.append(batch_cost)
 
-    return results
+    return torch.cat(cost, 0).sum(1)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("datasets", nargs='+', help="Filename of the dataset(s) to evaluate")
-    parser.add_argument("-f", action='store_true', help="Set true to overwrite")
-    parser.add_argument("-o", default=None, help="Name of the results file to write")
+    parser.add_argument("--datasets", nargs='+', default=["./data/agh/agh20_validation_seed4321.pkl", ], help="Filename of the dataset(s) to evaluate")
     parser.add_argument('--seed', type=int, default=1234, help='Random seed to use')
-    parser.add_argument('--val_size', type=int, default=10000, help='Number of instances used for reporting validation performance')
+    parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
     parser.add_argument('--offset', type=int, default=0, help='Offset where to start in dataset (default 0)')
-    parser.add_argument('--eval_batch_size', type=int, default=1024, help="Batch size to use during (baseline) evaluation")
-    parser.add_argument('--decode_type', type=str, default='greedy', help='Decode type, greedy or sampling')
-    parser.add_argument('--width', type=int, nargs='+',
+    parser.add_argument('--eval_batch_size', type=int, default=10, help="Batch size to use during (baseline) evaluation")
+    parser.add_argument('--width', type=int, nargs='+', default=[100, ],
                         help='Sizes of beam to use for beam search (or number of samples for sampling), '
                              '0 to disable (default), -1 for infinite')
-    parser.add_argument('--decode_strategy', type=str, help='Beam search (bs), Sampling (sample) or Greedy (greedy)')
+    parser.add_argument('--decode_strategy', type=str, default='sample', choices=['sample', 'greedy', 'bs'],
+                        help='Beam search (bs), Sampling (sample) or Greedy (greedy)')
     parser.add_argument('--softmax_temperature', type=parse_softmax_temperature, default=1, help="Softmax temperature (sampling or bs)")
-    parser.add_argument('--model', type=str)
+    parser.add_argument('--model', type=str, default="./data/epoch-50.pt")
     parser.add_argument('--no_cuda', action='store_true', help='Disable CUDA')
     parser.add_argument('--no_progress_bar', action='store_true', help='Disable progress bar')
     parser.add_argument('--compress_mask', action='store_true', help='Compress mask into long')
-    parser.add_argument('--max_calc_batch_size', type=int, default=10000, help='Size for subbatches')
+    parser.add_argument('--max_calc_batch_size', type=int, default=1000, help='Size for subbatches')
     parser.add_argument('--results_dir', default='results', help="Name of results directory")
     parser.add_argument('--multiprocessing', action='store_true', help='Use multiprocessing to parallelize over multiple GPUs')
 
+    # sample: eval_batch_size=1, width=1000, decode_strategy=sample
     opts = parser.parse_args()
 
     # Set the random seed
@@ -206,9 +181,6 @@ if __name__ == "__main__":
     np.random.seed(opts.seed)
     torch.manual_seed(opts.seed)
     torch.cuda.manual_seed_all(opts.seed)
-
-    assert opts.o is None or (len(opts.datasets) == 1 and len(opts.width) <= 1), \
-        "Cannot specify result filename with more than one dataset or more than one width"
 
     widths = opts.width if opts.width is not None else [0]
 

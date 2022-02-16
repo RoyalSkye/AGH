@@ -21,7 +21,8 @@ def cws(input_, problem, opt):
 
     sequences = []
     state = problem.make_state(input_)
-    ids = torch.arange(opt.val_size)[:, None]
+    batch_size = input_['loc'].size(0)
+    ids = torch.arange(batch_size)[:, None]
 
     # calculate savings
     from_depot, to_depot = input_['loc'], NODE_SIZE * input_['loc']
@@ -32,7 +33,7 @@ def cws(input_, problem, opt):
     i_index = input_['loc'][:, :, None].repeat(1, 1, opt.graph_size)
     j_index = input_['loc'][:, None, :].repeat(1, opt.graph_size, 1)
     i_j = NODE_SIZE * i_index + j_index
-    temp_distance = input_['distance'][:, None, :].expand(opt.val_size, opt.graph_size, NODE_SIZE * NODE_SIZE)
+    temp_distance = input_['distance'][:, None, :].expand(batch_size, opt.graph_size, NODE_SIZE * NODE_SIZE)
     i_j_distance = temp_distance.gather(2, i_j)
 
     savings_distance = from_depot + to_depot - i_j_distance
@@ -129,6 +130,7 @@ def single_insert(i, input, problem, opt):
         distance_index = state.NODE_SIZE * state.coords[0, state.tour].permute(1, 0).repeat(1, n_loc) + state.coords.repeat(steps, 1)  # [steps, n_loc]
         d = torch.gather(distance.repeat(steps, 1), 1, distance_index)  # [steps, n_loc]
         mask_ = mask.repeat(steps, 1)
+        # selected node based on mask (can insert to the end anyway)
         if opt.val_method == "nearest_insert":
             d[:, 0] = 9999  # depot penalty
             d[mask_] = 10000
@@ -199,9 +201,9 @@ def insertion(input, problem, opt):
 
 def val(dataset, opt, fleet_info, distance, problem):
     cost = []
-    for bat in tqdm(DataLoader(dataset, batch_size=200), disable=opt.no_progress_bar):
+    for bat in tqdm(DataLoader(dataset, batch_size=32, shuffle=False), disable=opt.no_progress_bar):
         bat_cost = []
-        bat_tw_left = bat['arrival'].repeat(len(fleet_info['next_duration']) + 1, 1, 1).to(opts.device)  # # [6, batch_size, graph_size]
+        bat_tw_left = bat['arrival'].repeat(len(fleet_info['next_duration']) + 1, 1, 1).to(opts.device)  # [6, batch_size, graph_size]
         bat_tw_right = bat['departure']  # [batch_size, graph_size]
         for f in fleet_info['order']:
             # merge more data
@@ -237,6 +239,7 @@ def val(dataset, opt, fleet_info, distance, problem):
 
     cost = torch.cat(cost, 0)  # [dataset, 10]
     cost = cost.sum(1)
+    print(cost.tolist())
     avg_cost = cost.mean()
     print('Validation overall avg_cost: {} +- {}'.format(avg_cost, torch.std(cost) / math.sqrt(len(cost))))
 
@@ -249,6 +252,7 @@ if __name__ == "__main__":
     parser.add_argument('--val_method', type=str, default='cws', choices=['cws', 'nearest_insert', 'farthest_insert',
                                                                           'random_insert', 'nearest_neighbor'])
     parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
+    parser.add_argument('--offset', type=int, default=0, help='Offset where to start in dataset (default 0)')
     parser.add_argument('--seed', type=int, default=1234, help='Random seed to use')
     parser.add_argument('--no_cuda', action='store_true', help='Disable CUDA')
     parser.add_argument('--multiprocess', action='store_true', help='Using multiprocessing module')
@@ -270,7 +274,7 @@ if __name__ == "__main__":
     # Figure out what's the problem
     problem_ = load_problem(opts.problem)
 
-    val_dataset = problem_.make_dataset(size=opts.graph_size, num_samples=opts.val_size, filename=opts.filename)
+    val_dataset = problem_.make_dataset(filename=opts.filename, num_samples=opts.val_size, offset=opts.offset)
 
     with open('problems/agh/fleet_info.pkl', 'rb') as file_:
         fleet_info_ = pickle.load(file_)

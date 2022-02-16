@@ -64,8 +64,7 @@ def rollout(model, dataset, opts):
                 bat_cost.append(fleet_cost.data.cpu().view(-1, 1))
 
                 # update tw_left
-                bat_tw_left[model.fleet_info['precedence'][f] + 1] = torch.max(
-                    bat_tw_left[model.fleet_info['precedence'][f] + 1], serve_time[:, 1:])
+                bat_tw_left[model.fleet_info['precedence'][f] + 1] = torch.max(bat_tw_left[model.fleet_info['precedence'][f] + 1], serve_time[:, 1:])
             bat_cost = torch.cat(bat_cost, 1)
             cost.append(bat_cost)  # [batch_size, 10]
         return torch.cat(cost, 0)  # [dataset, 10]
@@ -204,20 +203,20 @@ def train_batch_agh(model, optimizer, baseline, epoch, batch_id, step, batch, tb
         bat_tw_left[model.fleet_info['precedence'][f] + 1, :, :] = torch.max(
             bat_tw_left[model.fleet_info['precedence'][f] + 1, :, :], serve_time[:, 1:])
 
-        loss = ((fleet_cost_list[0] - bl_val[:, 0]) * log_likelihood_list[0]).mean()
-        for i in range(1, len(fleet_cost_list)):
-            loss += ((fleet_cost_list[i] - bl_val[:, i]) * log_likelihood_list[i]).mean()
-        loss = loss / len(fleet_cost_list)
+    loss = ((fleet_cost_list[0] - bl_val[:, 0]) * log_likelihood_list[0]).mean()
+    for i in range(1, len(fleet_cost_list)):
+        loss += ((fleet_cost_list[i] - bl_val[:, i]) * log_likelihood_list[i]).mean()
+    loss = loss / len(fleet_cost_list)
 
-        optimizer.zero_grad()
-        loss.backward()
-        # Clip gradient norms and get (clipped) gradient norms for logging
-        grad_norms = clip_grad_norms(optimizer.param_groups, opts.max_grad_norm)
-        optimizer.step()
+    optimizer.zero_grad()
+    loss.backward()
+    # Clip gradient norms and get (clipped) gradient norms for logging
+    grad_norms = clip_grad_norms(optimizer.param_groups, opts.max_grad_norm)
+    optimizer.step()
 
-        # Logging
-        if step % int(opts.log_step) == 0:
-            log_values(fleet_cost_together, grad_norms, epoch, batch_id, step, log_likelihood_together, loss, 0, tb_logger, opts)
+    # Logging
+    if step % int(opts.log_step) == 0:
+        log_values(fleet_cost_together, grad_norms, epoch, batch_id, step, log_likelihood_together, loss, 0, tb_logger, opts)
 
 
 def train_batch(model, optimizer, baseline, epoch, batch_id, step, batch, tb_logger, opts):

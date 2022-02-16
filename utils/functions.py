@@ -115,7 +115,9 @@ def load_model(path, epoch=None):
         normalization=args['normalization'],
         tanh_clipping=args['tanh_clipping'],
         checkpoint_encoder=args.get('checkpoint_encoder', False),
-        shrink_size=args.get('shrink_size', None)
+        shrink_size=args.get('shrink_size', None),
+        wo_time=args["wo_time"],
+        rnn_time=args["rnn_time"]
     )
     # Overwrite model parameters by parameters to load
     load_data = torch_load_cpu(model_filename)
@@ -179,32 +181,43 @@ def do_batch_rep(v, n):
 
 def sample_many(inner_func, get_cost_func, input, batch_rep=1, iter_rep=1):
     """
-    :param input: (batch_size, graph_size, node_dim) input node features
+    :param (input[0]: dict input[1]: [batch_size, graph_size+1, embedding_dim])
     :return:
     """
+    # e.g.: [batch_size, graph_size+1, embedding_dim] -> [batch_rep * batch_size, graph_size+1, embedding_dim]
     input = do_batch_rep(input, batch_rep)
 
     costs = []
     pis = []
+    serves = []
     for i in range(iter_rep):
-        _log_p, pi = inner_func(input)
-        # pi.view(-1, batch_rep, pi.size(-1))
+        _log_p, pi, serve_time = inner_func(input)
         cost, mask = get_cost_func(input, pi)
 
         costs.append(cost.view(batch_rep, -1).t())
         pis.append(pi.view(batch_rep, -1, pi.size(-1)).transpose(0, 1))
+        serves.append(serve_time.view(batch_rep, -1, serve_time.size(-1)).transpose(0, 1))
 
     max_length = max(pi.size(-1) for pi in pis)
     # (batch_size * batch_rep, iter_rep, max_length) => (batch_size, batch_rep * iter_rep, max_length)
     pis = torch.cat(
         [F.pad(pi, (0, max_length - pi.size(-1))) for pi in pis],
         1
-    )  # .view(embeddings.size(0), batch_rep * iter_rep, max_length)
+    )
     costs = torch.cat(costs, 1)
+    serves = torch.cat(serves, 1)
 
-    # (batch_size)
+    # print(pis.size(), costs.size(), serves.size())
+    # pis:    [batch_size, batch_rep * iter_rep, max_len]
+    # costs:  [batch_size, batch_rep * iter_rep]
+    # serves: [batch_size, batch_rep * iter_rep, graph_size+1]
+
+    # [batch_size]
     mincosts, argmincosts = costs.min(-1)
-    # (batch_size, minlength)
+    # [batch_size, minlength]
     minpis = pis[torch.arange(pis.size(0), out=argmincosts.new()), argmincosts]
+    minserves = serves[torch.arange(serves.size(0), out=argmincosts.new()), argmincosts]
 
-    return minpis, mincosts
+    # print(minpis.size(), mincosts.size(), minserves.size())
+
+    return minpis, mincosts, minserves

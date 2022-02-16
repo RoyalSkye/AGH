@@ -101,7 +101,7 @@ class AGHDataset(Dataset):
             with open(filename, 'rb') as f:
                 data = pickle.load(f)
         else:
-            CAPACITIES = {10: 20., 20: 30., 50: 40., 100: 50.}
+            CAPACITIES = {10: 20., 20: 30., 50: 40., 100: 50., 200: 60., 300: 70.}
             n_gate, n_hour, n_min, prob = 91, 24, 60, np.load('problems/agh/arrival_prob.npy')
             loc = 1 + np.random.choice(n_gate, size=(num_samples, size))
             arrival = 60 * np.random.choice(n_hour, size=(num_samples, size),
