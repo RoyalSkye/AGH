@@ -15,7 +15,7 @@ def get_options(args=None):
     parser.add_argument('--epoch_size', type=int, default=12800, help='Number of instances per epoch during training')
     parser.add_argument('--val_size', type=int, default=1000,
                         help='Number of instances used for reporting validation performance')
-    parser.add_argument('--val_dataset', type=str, default="./data/agh/agh20_validation_seed4321.pkl", help='Dataset file to use for validation')
+    parser.add_argument('--val_dataset', type=str, default=None, help='Dataset file to use for validation')
 
     # Model
     parser.add_argument('--model', default='attention', help="Model, 'attention' (default) or 'pointer'")

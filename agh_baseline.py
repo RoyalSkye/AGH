@@ -246,7 +246,7 @@ def val(dataset, opt, fleet_info, distance, problem):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--filename", help="Filename of the dataset to load (ignores datadir)")
+    parser.add_argument("--filename", help="Filename of the dataset to load")
     parser.add_argument("--problem", type=str, default='agh', help="only support airport ground handling in this code")
     parser.add_argument('--graph_size', type=int, default=20, help="Sizes of problem instances (20, 50, 100)")
     parser.add_argument('--val_method', type=str, default='cws', choices=['cws', 'nearest_insert', 'farthest_insert',
