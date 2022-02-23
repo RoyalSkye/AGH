@@ -8,6 +8,7 @@ import argparse
 import pprint as pp
 import numpy as np
 from tqdm import tqdm
+import torch.nn.functional as F
 from utils import move_to, load_problem
 from torch.utils.data import DataLoader
 from multiprocessing import Pool
@@ -76,7 +77,7 @@ def cws(input_, problem, opt):
     return cost, state.serve_time
 
 
-def nearest_neighbor(input, problem):
+def nearest_neighbor(input, problem, return_state=False):
     state = problem.make_state(input)
     sequences = []
     while not state.all_finished():
@@ -94,7 +95,10 @@ def nearest_neighbor(input, problem):
     pi = torch.stack(sequences, 1)
     cost, _ = problem.get_costs(input, pi)
 
-    return cost, state.serve_time
+    if return_state:
+        return cost, state
+    else:
+        return cost, state.serve_time
 
 
 def check_insert(start, selected, tour, start_state, tmp_state_dict):
@@ -199,6 +203,96 @@ def insertion(input, problem, opt):
     return cost, serve_time
 
 
+def stochastic_2_opt(input, problem, cur_tour, prob=0.2):
+    """
+        For simulated_annealing to find a neighborhood of current solution,
+        may not be feasible solution after 2 opt.
+    """
+    state = problem.make_state(input)
+    feasibility = torch.zeros(cur_tour.size(0), dtype=torch.uint8, device=input["loc"].device)  # [batch_size]
+    ids = torch.arange(cur_tour.size(0), device=input["loc"].device)
+    if np.random.uniform(0, 1) <= prob:
+        left, right = random.randint(1, cur_tour.size(-1)-1), random.randint(1, cur_tour.size(-1)-1)
+        if left > right:
+            left, right = right, left
+    else:
+        left = random.randint(1, cur_tour.size(-1)-4)
+        right = left + random.randint(1, 3)  # otherwise, too many infeasible sol
+    for i in range(1, cur_tour.size(-1)):
+        if i == left:  # [left, right]
+            cur = right
+            while cur >= left:
+                selected = cur_tour[:, cur]  # [batch_size]
+                mask = state.get_mask()
+                mask = mask[:, 0, :]  # [batch_size, n_loc+1]
+                feasibility = feasibility | mask[ids, selected]
+                state = state.update(selected)
+                cur -= 1
+            i = right + 1
+        else:
+            selected = cur_tour[:, i]  # [batch_size]
+            mask = state.get_mask()
+            mask = mask[:, 0, :]  # [batch_size, n_loc+1]
+            feasibility = feasibility | mask[ids, selected]
+            state = state.update(selected)
+    return state, feasibility
+
+
+def pad_tour(tour1, tour2):
+    while True:
+        if (tour1[-1] == 0).sum() == tour1.size(0):
+            tour1 = tour1[:, :-1]
+        elif (tour2[-1] == 0).sum() == tour2.size(0):
+            tour2 = tour2[:, :-1]
+        else:
+            break
+    if tour1.size(-1) > tour2.size(-1):
+        tour2 = F.pad(tour2, (0, tour1.size(-1)-tour2.size(-1)), "constant", 0)
+    elif tour1.size(-1) < tour2.size(-1):
+        tour1 = F.pad(tour1, (0, tour2.size(-1) - tour1.size(-1)), "constant", 0)
+    return tour1, tour2
+
+
+def simulated_annealing(input, problem):
+    count, start_t = 0, time.time()
+    time_limit = 360
+    neighbourhood_size, iterations, T = 500, 100, 200
+    cost, state = nearest_neighbor(input, problem, return_state=True)
+    print(">> init sol: {}".format(cost.mean()))
+    serve_time, tour = state.serve_time, state.tour  # [batch_size, -1]
+    cur_sol_cost, cur_sol_serve_time, cur_sol_tour = cost.detach().clone(), serve_time.detach().clone(), tour.detach().clone()
+    best_sol_cost, best_sol_serve_time, best_sol_tour = cost.detach().clone(), serve_time.detach().clone(), tour.detach().clone()
+    while (count < iterations):
+        if time.time() - start_t > time_limit:
+            break
+        for i in range(0, neighbourhood_size):
+            # preprocess cur_sol_tour
+            while True:
+                if (cur_sol_tour[:, -1] == 0).sum() == cur_sol_tour.size(0):
+                    cur_sol_tour = cur_sol_tour[:, :-1]
+                else:
+                    break
+            state, feasibility = stochastic_2_opt(input, problem, cur_sol_tour, prob=0.2)
+            new_sol_cost, new_sol_serve_time, new_sol_tour = state.lengths.view(-1), state.serve_time, state.tour
+            delta_cost = new_sol_cost - cur_sol_cost
+            # print(feasibility)
+            ran_accept = np.random.uniform(0, 1, feasibility.size(0))
+            criteria = np.e ** (- delta_cost * 2 / 200)
+            accept_id = (feasibility == 0) & ((delta_cost < 0) | (torch.Tensor(ran_accept).to(input["loc"].device) <= criteria))
+            best_id = accept_id & (new_sol_cost < best_sol_cost)
+            # print(accept_id, best_id)
+            cur_sol_tour, new_sol_tour = pad_tour(cur_sol_tour, new_sol_tour)
+            cur_sol_cost[accept_id], cur_sol_serve_time[accept_id], cur_sol_tour[accept_id] = new_sol_cost[accept_id], new_sol_serve_time[accept_id], new_sol_tour[accept_id]
+            best_sol_tour, new_sol_tour = pad_tour(best_sol_tour, new_sol_tour)
+            best_sol_cost[best_id], best_sol_serve_time[best_id], best_sol_tour[best_id] = new_sol_cost[best_id], new_sol_serve_time[best_id], new_sol_tour[best_id]
+        count = count + 1
+        T = T * 0.9
+
+    print(">> After SA sol: {}".format(best_sol_cost.mean()))
+
+    return best_sol_cost, best_sol_serve_time
+
+
 def val(dataset, opt, fleet_info, distance, problem):
     cost = []
     for bat in tqdm(DataLoader(dataset, batch_size=32, shuffle=False), disable=opt.no_progress_bar):
@@ -225,6 +319,8 @@ def val(dataset, opt, fleet_info, distance, problem):
                 fleet_cost, serve_time = nearest_neighbor(move_to(fleet_bat, opt.device), problem)
             elif opt.val_method in ["nearest_insert", "farthest_insert", "random_insert"]:
                 fleet_cost, serve_time = insertion(move_to(fleet_bat, opt.device), problem, opt)
+            elif opt.val_method == "sa":
+                fleet_cost, serve_time = simulated_annealing(move_to(fleet_bat, opt.device), problem)
             else:
                 print(">> Unsupported val method!")
                 return 0
@@ -246,22 +342,22 @@ def val(dataset, opt, fleet_info, distance, problem):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--filename", help="Filename of the dataset to load")
+    parser.add_argument("--filename", type=str, default="./data/agh/agh20_validation_seed4321.pkl", help="Filename of the dataset to load")
     parser.add_argument("--problem", type=str, default='agh', help="only support airport ground handling in this code")
     parser.add_argument('--graph_size', type=int, default=20, help="Sizes of problem instances (20, 50, 100)")
     parser.add_argument('--val_method', type=str, default='cws', choices=['cws', 'nearest_insert', 'farthest_insert',
-                                                                          'random_insert', 'nearest_neighbor'])
+                                                                          'random_insert', 'nearest_neighbor', 'sa'])
     parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
     parser.add_argument('--offset', type=int, default=0, help='Offset where to start in dataset (default 0)')
     parser.add_argument('--seed', type=int, default=1234, help='Random seed to use')
-    parser.add_argument('--no_cuda', action='store_true', help='Disable CUDA')
     parser.add_argument('--multiprocess', action='store_true', help='Using multiprocessing module')
     parser.add_argument('--no_progress_bar', action='store_true', help='Disable progress bar')
 
     opts = parser.parse_args()
 
-    opts.use_cuda = torch.cuda.is_available() and not opts.no_cuda
+    opts.use_cuda = torch.cuda.is_available() and opts.val_method not in ["nearest_insert", "farthest_insert", "random_insert"]
     opts.device = torch.device("cuda" if opts.use_cuda else "cpu")
+    print(opts.device)
 
     pp.pprint(vars(opts))
 

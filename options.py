@@ -80,7 +80,6 @@ def get_options(args=None):
     opts = parser.parse_args(args)
 
     assert opts.baseline == "rollout", "Only support for 'rollout' baseline now!"
-    opts.rnn_time = True
     opts.use_cuda = torch.cuda.is_available() and not opts.no_cuda
     opts.run_name = "{}_{}".format(opts.run_name, time.strftime("%Y%m%dT%H%M%S"))
     opts.no_progress_bar = True

@@ -148,7 +148,7 @@ class StateAGH(NamedTuple):
 
     def get_mask(self):
         """
-        Gets a (batch_size, n_loc + 1) mask with the feasible actions (0 = depot), depends on already visited,
+        Gets a (batch_size, 1, n_loc + 1) mask with the feasible actions (0 = depot), depends on already visited,
         current free time and remaining capacity.
         !!! 0 = feasible, 1 = infeasible
         Forbids to visit depot twice in a row, unless all nodes have been visited

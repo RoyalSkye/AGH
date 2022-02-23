@@ -262,23 +262,23 @@ def construct_cplex_model(cvrptw, x_fixed=None):
 
         cvrptw.x = x
         cvrptw.t = t
-        print("Construct x {}, t {} within {}s".format(len(x), len(t), time.time() - cur_t))
+        # print("Construct x {}, t {} within {}s".format(len(x), len(t), time.time() - cur_t))
 
         cur_t = time.time()
         mdl = add_constraints(mdl, x, t, cvrptw)
-        print("Construct Deterministic constraints within {}s".format(time.time() - cur_t))
-        print("constraints: {}, variables: {}".format(mdl.number_of_constraints, mdl.number_of_variables))
+        # print("Construct Deterministic constraints within {}s".format(time.time() - cur_t))
+        # print("constraints: {}, variables: {}".format(mdl.number_of_constraints, mdl.number_of_variables))
 
         cur_t = time.time()
         mdl.minimize(mdl.sum((cvrptw.args["distance"][i, j]) * x[i, j, k, f] for i, j, k, f in cvrptw.visit))
-        print("Construct Obj within {}s".format(time.time() - cur_t))
+        # print("Construct Obj within {}s".format(time.time() - cur_t))
     elif cvrptw.lns_constraints is not None:
         mdl = cvrptw.model
         # Remove previous lns_cts
         cur_t = time.time()
         mdl.remove_constraints(cvrptw.lns_constraints)
-        print("Remove {} LNS Constraints within {}s".format(len(cvrptw.lns_constraints), time.time() - cur_t))
-        print("constraints: {}, variables: {}".format(mdl.number_of_constraints, mdl.number_of_variables))
+        # print("Remove {} LNS Constraints within {}s".format(len(cvrptw.lns_constraints), time.time() - cur_t))
+        # print("constraints: {}, variables: {}".format(mdl.number_of_constraints, mdl.number_of_variables))
 
     if x_fixed is not None:
         # Add new lns_cts
@@ -286,10 +286,10 @@ def construct_cplex_model(cvrptw, x_fixed=None):
         cur_t = time.time()
         pre_x = cvrptw.visit
         cvrptw.lns_constraints = mdl.add_constraints([cvrptw.x[key] == pre_x[key] for key in x_fixed])  # fix part of variable by add_constraints
-        print("Add {} New LNS Constraints within {}s".format(len(cvrptw.lns_constraints), time.time() - cur_t))
-        print("constraints: {}, variables: {}".format(mdl.number_of_constraints, mdl.number_of_variables))
+        # print("Add {} New LNS Constraints within {}s".format(len(cvrptw.lns_constraints), time.time() - cur_t))
+        # print("constraints: {}, variables: {}".format(mdl.number_of_constraints, mdl.number_of_variables))
 
-    print("Construct Cplex model Within {}s".format(time.time() - start_time))
+    # print("Construct Cplex model Within {}s".format(time.time() - start_time))
     cvrptw.construct_time = cvrptw.construct_time + time.time() - start_time
 
     return mdl
@@ -311,7 +311,7 @@ def random_destroy(cvrptw, degree_of_destruction=0.5, mipgap=0.1, timelimit=10):
     mdl.parameters.timelimit = timelimit
     mdl.parameters.mip.tolerances.mipgap = mipgap
     mdl.parameters.advance = 0  # Do not use advanced start information, start the new solve from scratch
-    solution = mdl.solve(log_output=True)
+    solution = mdl.solve(log_output=False)
     mdl.get_solve_status()
 
     return solution
@@ -327,7 +327,7 @@ def solve_instance(fleet_info, distance_dict, val_dataset, opts):
         type = input["type"][0]
         demand = input["demand"][0]  # [fleet_size, graph_size]
         fleet_size, graph_size = demand.size()
-        initial_vehicle = {20: 10, 50: 20, 100: 25, 200: 40, 300: 50}.get(opts.graph_size)
+        initial_vehicle = {20: 15, 50: 20, 100: 25, 200: 40, 300: 50}.get(opts.graph_size)
 
         customers = [j for j in range(1, graph_size+1)]
         fleets = [j for j in range(1, fleet_size+1)]
@@ -385,31 +385,35 @@ def solve_instance(fleet_info, distance_dict, val_dataset, opts):
             mdl.parameters.timelimit = timelimit[opts.graph_size]
             solution = mdl.solve(log_output=False)
             mdl.get_solve_status()
+            if solution is not None:
+                print(solution.objective_value)
+                cost.append(solution.objective_value)
+            else:
+                cost.append(None)
         elif opts.val_method == "lns":
             total_tl = {20: 60, 50: 300, 100: 600, 200: 1800, 300: 3600}
             timelimit = {20: 12, 50: 60, 100: 120, 200: 360, 300: 720}
             start_t = time.time()
             cvrptw = get_initial_sol(args)
+            print(">> initial sol: {}".format(cvrptw.obj))
             while time.time()-start_t < total_tl[opts.graph_size]:
                 solution = random_destroy(cvrptw, degree_of_destruction=0.5, mipgap=0.2, timelimit=timelimit[opts.graph_size])
                 if solution is not None and solution.objective_value < cvrptw.obj:
                     visit = {k: int(cvrptw.x[k].solution_value) for k in cvrptw.visit.keys()}
                     t1 = {k: cvrptw.t[k].solution_value for k in cvrptw.time.keys()}
                     cvrptw.set_solution(visit, t1)
-        if solution is not None:
-            cost.append(solution.objective_value)
-        else:
-            cost.append(None)
+            print(">> LNS sol: {}".format(cvrptw.obj))
+            cost.append(cvrptw.obj)
     print(cost)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--filename", type=str, default="./data/agh/agh100_validation_seed4321.pkl", help="Filename of the dataset to load")
+    parser.add_argument("--filename", type=str, default="./data/agh/agh20_validation_seed4321.pkl", help="Filename of the dataset to load")
     parser.add_argument("--problem", type=str, default='agh', help="only support airport ground handling in this code")
-    parser.add_argument('--graph_size', type=int, default=100, help="Sizes of problem instances (20, 50, 100, 200, 300)")
-    parser.add_argument('--val_method', type=str, default='lns', choices=['cplex', 'lns'])
-    parser.add_argument('--val_size', type=int, default=50, help='Number of instances used for reporting validation performance')
+    parser.add_argument('--graph_size', type=int, default=20, help="Sizes of problem instances (20, 50, 100, 200, 300)")
+    parser.add_argument('--val_method', type=str, default='cplex', choices=['cplex', 'lns'])
+    parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
     parser.add_argument('--offset', type=int, default=0, help='Offset where to start in dataset (default 0)')
     parser.add_argument('--seed', type=int, default=1234, help='Random seed to use')
     parser.add_argument('--no_progress_bar', action='store_true', help='Disable progress bar')

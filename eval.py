@@ -71,6 +71,7 @@ def eval_dataset(dataset_path, width, softmax_temp, opts):
         dataset = model.problem.make_dataset(filename=dataset_path, num_samples=opts.val_size, offset=opts.offset)
         results = _eval_dataset(model, dataset, width, softmax_temp, opts, device)
 
+    print(results.tolist())
     print("Using {} strategy: Average cost: {} +- {}".format(opts.decode_strategy, torch.mean(results), torch.std(results) / math.sqrt(len(results))))
     print(">> End of validation within {:.2f}s".format(time.time()-start_time))
 
@@ -130,7 +131,7 @@ def _eval_dataset(model, dataset, width, softmax_temp, opts, device):
                         batch_rep = width
                         iter_rep = 1
                     assert batch_rep > 0
-                    sequences, costs, serve_time = model.sample_many(fleet_bat, batch_rep=batch_rep, iter_rep=iter_rep)
+                    sequences, costs, serve_time = model.sample_many(move_to(fleet_bat, device), batch_rep=batch_rep, iter_rep=iter_rep)
                     batch_size = len(costs)
                     batch_cost.append(costs.data.cpu().view(-1, 1))
                 else:
@@ -159,7 +160,7 @@ if __name__ == "__main__":
     parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
     parser.add_argument('--offset', type=int, default=0, help='Offset where to start in dataset (default 0)')
     parser.add_argument('--eval_batch_size', type=int, default=10, help="Batch size to use during (baseline) evaluation")
-    parser.add_argument('--width', type=int, nargs='+', default=[100, ],
+    parser.add_argument('--width', type=int, nargs='+',
                         help='Sizes of beam to use for beam search (or number of samples for sampling), '
                              '0 to disable (default), -1 for infinite')
     parser.add_argument('--decode_strategy', type=str, default='sample', choices=['sample', 'greedy', 'bs'],
