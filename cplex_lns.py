@@ -379,7 +379,7 @@ def solve_instance(fleet_info, distance_dict, val_dataset, opts):
                 "flight_type": flight_type}
 
         if opts.val_method == "cplex":
-            timelimit = {20: 60, 50: 300, 100: 600, 200: 1800, 300: 3600}
+            timelimit = {20: 1800, 50: 1800, 100: 1800, 200: 1800, 300: 1800}
             cvrptw = CVRPTW(args=args, init_solution=None)
             mdl = construct_cplex_model(cvrptw)
             mdl.parameters.timelimit = timelimit[opts.graph_size]
@@ -391,19 +391,48 @@ def solve_instance(fleet_info, distance_dict, val_dataset, opts):
             else:
                 cost.append(None)
         elif opts.val_method == "lns":
-            total_tl = {20: 60, 50: 300, 100: 600, 200: 1800, 300: 3600}
-            timelimit = {20: 12, 50: 60, 100: 120, 200: 360, 300: 720}
+            total_tl = {20: 1800, 50: 1800, 100: 1800, 200: 1800, 300: 1800}
+            timelimit = {20: 20, 50: 60, 100: 120, 200: 300, 300: 600}
             start_t = time.time()
             cvrptw = get_initial_sol(args)
+            best_obj = cvrptw.obj
             print(">> initial sol: {}".format(cvrptw.obj))
             while time.time()-start_t < total_tl[opts.graph_size]:
-                solution = random_destroy(cvrptw, degree_of_destruction=0.5, mipgap=0.2, timelimit=timelimit[opts.graph_size])
+                solution = random_destroy(cvrptw, degree_of_destruction=0.5, mipgap=0.1, timelimit=timelimit[opts.graph_size])
                 if solution is not None and solution.objective_value < cvrptw.obj:
                     visit = {k: int(cvrptw.x[k].solution_value) for k in cvrptw.visit.keys()}
                     t1 = {k: cvrptw.t[k].solution_value for k in cvrptw.time.keys()}
                     cvrptw.set_solution(visit, t1)
-            print(">> LNS sol: {}".format(cvrptw.obj))
-            cost.append(cvrptw.obj)
+                    best_obj = cvrptw.obj if cvrptw.obj < best_obj else best_obj
+            print(">> LNS sol: {}".format(best_obj))
+            cost.append(best_obj)
+        elif opts.val_method == "lns_sa":
+            total_tl = {20: 1800, 50: 1800, 100: 1800, 200: 1800, 300: 1800}
+            timelimit = {20: 20, 50: 60, 100: 120, 200: 300, 300: 600}
+            start_t, T, iteration = time.time(), 200, 0
+            cvrptw = get_initial_sol(args)
+            best_obj = cvrptw.obj
+            print(">> initial sol: {}".format(cvrptw.obj))
+            while time.time() - start_t < total_tl[opts.graph_size]:
+                solution = random_destroy(cvrptw, degree_of_destruction=0.5, mipgap=0.1, timelimit=timelimit[opts.graph_size])
+                iteration += 1
+                T = T * 0.95 if iteration % 10 == 0 else T
+                if solution is not None:
+                    if solution.objective_value < cvrptw.obj:
+                        visit = {k: int(cvrptw.x[k].solution_value) for k in cvrptw.visit.keys()}
+                        t1 = {k: cvrptw.t[k].solution_value for k in cvrptw.time.keys()}
+                        cvrptw.set_solution(visit, t1)
+                        best_obj = cvrptw.obj if cvrptw.obj < best_obj else best_obj
+                    else:
+                        delta_cost = solution.objective_value - cvrptw.obj
+                        ran_accept = np.random.uniform(0, 1)
+                        criteria = np.e ** (-delta_cost / T)  # Metropolis criteria
+                        if ran_accept <= criteria:
+                            visit = {k: int(cvrptw.x[k].solution_value) for k in cvrptw.visit.keys()}
+                            t1 = {k: cvrptw.t[k].solution_value for k in cvrptw.time.keys()}
+                            cvrptw.set_solution(visit, t1)
+            print(">> LNS sol: {}".format(best_obj))
+            cost.append(best_obj)
     print(cost)
 
 
@@ -412,7 +441,7 @@ if __name__ == "__main__":
     parser.add_argument("--filename", type=str, default="./data/agh/agh20_validation_seed4321.pkl", help="Filename of the dataset to load")
     parser.add_argument("--problem", type=str, default='agh', help="only support airport ground handling in this code")
     parser.add_argument('--graph_size', type=int, default=20, help="Sizes of problem instances (20, 50, 100, 200, 300)")
-    parser.add_argument('--val_method', type=str, default='cplex', choices=['cplex', 'lns'])
+    parser.add_argument('--val_method', type=str, default='cplex', choices=['cplex', 'lns', 'lns_sa'])
     parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
     parser.add_argument('--offset', type=int, default=0, help='Offset where to start in dataset (default 0)')
     parser.add_argument('--seed', type=int, default=1234, help='Random seed to use')

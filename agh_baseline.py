@@ -149,6 +149,7 @@ def single_insert(i, input, problem, opt):
             random_id = random.randint(0, selected.size(0) - 1)
             selected = selected[random_id]
         selected = selected.view(-1)  # [1]
+        print(selected, selected.type())
         # insert selected node to the proper position
         if state.prev_a.view(-1) == 0 or selected.item() == 0:  # add to the end
             state = state.update(selected)
@@ -174,6 +175,8 @@ def single_insert(i, input, problem, opt):
                 elif j == len(sorted_dd) - 1:  # fail to insert, add to the end instead.
                     state = state.update(selected)
                     state_dict[selected.item()] = copy.deepcopy(state)
+    selected = torch.LongTensor([0])  # return to depot
+    state = state.update(selected)
 
     return state, i
 
@@ -203,38 +206,32 @@ def insertion(input, problem, opt):
     return cost, serve_time
 
 
-def stochastic_2_opt(input, problem, cur_tour, prob=0.2):
+def stochastic_2_swap(input, problem, cur_tour):
     """
         For simulated_annealing to find a neighborhood of current solution,
-        may not be feasible solution after 2 opt.
+        may not be feasible solution after swapping.
     """
     state = problem.make_state(input)
     feasibility = torch.zeros(cur_tour.size(0), dtype=torch.uint8, device=input["loc"].device)  # [batch_size]
     ids = torch.arange(cur_tour.size(0), device=input["loc"].device)
-    if np.random.uniform(0, 1) <= prob:
-        left, right = random.randint(1, cur_tour.size(-1)-1), random.randint(1, cur_tour.size(-1)-1)
-        if left > right:
-            left, right = right, left
-    else:
-        left = random.randint(1, cur_tour.size(-1)-4)
-        right = left + random.randint(1, 3)  # otherwise, too many infeasible sol
-    for i in range(1, cur_tour.size(-1)):
-        if i == left:  # [left, right]
-            cur = right
-            while cur >= left:
-                selected = cur_tour[:, cur]  # [batch_size]
-                mask = state.get_mask()
-                mask = mask[:, 0, :]  # [batch_size, n_loc+1]
-                feasibility = feasibility | mask[ids, selected]
-                state = state.update(selected)
-                cur -= 1
-            i = right + 1
+    left, right = random.randint(1, cur_tour.size(-1)-1), random.randint(1, cur_tour.size(-1)-1)
+    if left > right:
+        left, right = right, left
+    start = 1
+    while start < cur_tour.size(-1):
+        if start == left:  # [left, right]
+            selected = cur_tour[:, right]  # [batch_size]
+        elif start == right:
+            selected = cur_tour[:, left]
         else:
-            selected = cur_tour[:, i]  # [batch_size]
-            mask = state.get_mask()
-            mask = mask[:, 0, :]  # [batch_size, n_loc+1]
-            feasibility = feasibility | mask[ids, selected]
-            state = state.update(selected)
+            selected = cur_tour[:, start]
+        mask = state.get_mask()
+        mask = mask[:, 0, :]  # [batch_size, n_loc+1]
+        feasibility = feasibility | mask[ids, selected]
+        state = state.update(selected)
+        start += 1
+    selected = torch.LongTensor([0] * cur_tour.size(0)).to(input["loc"].device)  # return to depot
+    state = state.update(selected)
     return state, feasibility
 
 
@@ -255,7 +252,7 @@ def pad_tour(tour1, tour2):
 
 def simulated_annealing(input, problem):
     count, start_t = 0, time.time()
-    time_limit = 360
+    time_limit = 180  # for one fleet, total 1800
     neighbourhood_size, iterations, T = 500, 100, 200
     cost, state = nearest_neighbor(input, problem, return_state=True)
     print(">> init sol: {}".format(cost.mean()))
@@ -272,12 +269,12 @@ def simulated_annealing(input, problem):
                     cur_sol_tour = cur_sol_tour[:, :-1]
                 else:
                     break
-            state, feasibility = stochastic_2_opt(input, problem, cur_sol_tour, prob=0.2)
+            state, feasibility = stochastic_2_swap(input, problem, cur_sol_tour)
             new_sol_cost, new_sol_serve_time, new_sol_tour = state.lengths.view(-1), state.serve_time, state.tour
             delta_cost = new_sol_cost - cur_sol_cost
             # print(feasibility)
             ran_accept = np.random.uniform(0, 1, feasibility.size(0))
-            criteria = np.e ** (- delta_cost * 2 / 200)
+            criteria = np.e ** (-delta_cost / T)
             accept_id = (feasibility == 0) & ((delta_cost < 0) | (torch.Tensor(ran_accept).to(input["loc"].device) <= criteria))
             best_id = accept_id & (new_sol_cost < best_sol_cost)
             # print(accept_id, best_id)
@@ -295,7 +292,7 @@ def simulated_annealing(input, problem):
 
 def val(dataset, opt, fleet_info, distance, problem):
     cost = []
-    for bat in tqdm(DataLoader(dataset, batch_size=32, shuffle=False), disable=opt.no_progress_bar):
+    for bat in tqdm(DataLoader(dataset, batch_size=50, shuffle=False), disable=opt.no_progress_bar):
         bat_cost = []
         bat_tw_left = bat['arrival'].repeat(len(fleet_info['next_duration']) + 1, 1, 1).to(opts.device)  # [6, batch_size, graph_size]
         bat_tw_right = bat['departure']  # [batch_size, graph_size]
