@@ -128,7 +128,6 @@ class StateAGH(NamedTuple):
             visited_ = mask_long_scatter(self.visited_, prev_a - 1)
 
         serve_time = self.serve_time.scatter_(1, selected, cur_free_time.float())
-
         tour = torch.cat((self.tour, selected), dim=1)
 
         return self._replace(

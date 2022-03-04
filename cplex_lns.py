@@ -379,7 +379,7 @@ def solve_instance(fleet_info, distance_dict, val_dataset, opts):
                 "flight_type": flight_type}
 
         if opts.val_method == "cplex":
-            timelimit = {20: 1800, 50: 1800, 100: 1800, 200: 1800, 300: 1800}
+            timelimit = {20: 1800, 50: 1800, 100: 1800, 200: 3600, 300: 3600}
             cvrptw = CVRPTW(args=args, init_solution=None)
             mdl = construct_cplex_model(cvrptw)
             mdl.parameters.timelimit = timelimit[opts.graph_size]
@@ -391,7 +391,7 @@ def solve_instance(fleet_info, distance_dict, val_dataset, opts):
             else:
                 cost.append(None)
         elif opts.val_method == "lns":
-            total_tl = {20: 1800, 50: 1800, 100: 1800, 200: 1800, 300: 1800}
+            total_tl = {20: 1800, 50: 1800, 100: 1800, 200: 3600, 300: 3600}
             timelimit = {20: 20, 50: 60, 100: 120, 200: 300, 300: 600}
             start_t = time.time()
             cvrptw = get_initial_sol(args)
@@ -407,7 +407,7 @@ def solve_instance(fleet_info, distance_dict, val_dataset, opts):
             print(">> LNS sol: {}".format(best_obj))
             cost.append(best_obj)
         elif opts.val_method == "lns_sa":
-            total_tl = {20: 1800, 50: 1800, 100: 1800, 200: 1800, 300: 1800}
+            total_tl = {20: 1800, 50: 1800, 100: 1800, 200: 3600, 300: 3600}
             timelimit = {20: 20, 50: 60, 100: 120, 200: 300, 300: 600}
             start_t, T, iteration = time.time(), 200, 0
             cvrptw = get_initial_sol(args)

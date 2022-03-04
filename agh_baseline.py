@@ -149,7 +149,6 @@ def single_insert(i, input, problem, opt):
             random_id = random.randint(0, selected.size(0) - 1)
             selected = selected[random_id]
         selected = selected.view(-1)  # [1]
-        print(selected, selected.type())
         # insert selected node to the proper position
         if state.prev_a.view(-1) == 0 or selected.item() == 0:  # add to the end
             state = state.update(selected)
@@ -188,7 +187,7 @@ def insertion(input, problem, opt):
     # if multiprocessing error, use command: ulimit -n 10240
     if opt.multiprocess:
         print(">> Val using multiprocessing")
-        pool = Pool(processes=32)
+        pool = Pool(processes=50)
         for i in range(batch_size):
             res = pool.apply_async(single_insert, args=(i, input, problem, opt))
             res_list.append(res)
@@ -200,7 +199,7 @@ def insertion(input, problem, opt):
     else:
         for i in range(batch_size):
             state, _ = single_insert(i, input, problem, opt)
-            print(state.tour)
+            # print(state.tour)
             cost[i], serve_time[i] = state.lengths.view(-1), state.serve_time.view(-1)
 
     return cost, serve_time
@@ -347,12 +346,14 @@ if __name__ == "__main__":
     parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
     parser.add_argument('--offset', type=int, default=0, help='Offset where to start in dataset (default 0)')
     parser.add_argument('--seed', type=int, default=1234, help='Random seed to use')
+    parser.add_argument('--no_cuda', action='store_true', help='Disable CUDA')
     parser.add_argument('--multiprocess', action='store_true', help='Using multiprocessing module')
     parser.add_argument('--no_progress_bar', action='store_true', help='Disable progress bar')
 
     opts = parser.parse_args()
 
-    opts.use_cuda = torch.cuda.is_available() and opts.val_method not in ["nearest_insert", "farthest_insert", "random_insert"]
+    opts.use_cuda = torch.cuda.is_available() and not opts.no_cuda and \
+                    opts.val_method not in ["nearest_insert", "farthest_insert", "random_insert"]
     opts.device = torch.device("cuda" if opts.use_cuda else "cpu")
     print(opts.device)
 

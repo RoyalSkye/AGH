@@ -68,6 +68,7 @@ def eval_dataset(dataset_path, width, softmax_temp, opts):
 
     else:
         device = torch.device("cuda" if use_cuda else "cpu")
+        print(device)
         dataset = model.problem.make_dataset(filename=dataset_path, num_samples=opts.val_size, offset=opts.offset)
         results = _eval_dataset(model, dataset, width, softmax_temp, opts, device)
 
@@ -159,7 +160,7 @@ if __name__ == "__main__":
     parser.add_argument('--seed', type=int, default=1234, help='Random seed to use')
     parser.add_argument('--val_size', type=int, default=1000, help='Number of instances used for reporting validation performance')
     parser.add_argument('--offset', type=int, default=0, help='Offset where to start in dataset (default 0)')
-    parser.add_argument('--eval_batch_size', type=int, default=10, help="Batch size to use during (baseline) evaluation")
+    parser.add_argument('--eval_batch_size', type=int, default=1000, help="Batch size to use during (baseline) evaluation")
     parser.add_argument('--width', type=int, nargs='+',
                         help='Sizes of beam to use for beam search (or number of samples for sampling), '
                              '0 to disable (default), -1 for infinite')
