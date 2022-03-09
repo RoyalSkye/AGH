@@ -164,10 +164,10 @@ if __name__ == "__main__":
     parser.add_argument('--width', type=int, nargs='+',
                         help='Sizes of beam to use for beam search (or number of samples for sampling), '
                              '0 to disable (default), -1 for infinite')
-    parser.add_argument('--decode_strategy', type=str, default='sample', choices=['sample', 'greedy', 'bs'],
+    parser.add_argument('--decode_strategy', type=str, default='greedy', choices=['sample', 'greedy', 'bs'],
                         help='Beam search (bs), Sampling (sample) or Greedy (greedy)')
     parser.add_argument('--softmax_temperature', type=parse_softmax_temperature, default=1, help="Softmax temperature (sampling or bs)")
-    parser.add_argument('--model', type=str, default="./data/epoch-50.pt")
+    parser.add_argument('--model', type=str, default="./data/20")
     parser.add_argument('--no_cuda', action='store_true', help='Disable CUDA')
     parser.add_argument('--no_progress_bar', action='store_true', help='Disable progress bar')
     parser.add_argument('--compress_mask', action='store_true', help='Compress mask into long')
@@ -176,6 +176,7 @@ if __name__ == "__main__":
     parser.add_argument('--multiprocessing', action='store_true', help='Use multiprocessing to parallelize over multiple GPUs')
 
     # sample: eval_batch_size=1, width=1000, decode_strategy=sample
+    # greedy: eval_batch_size=1000, decode_strategy=greedy (width=0)
     opts = parser.parse_args()
 
     # Set the random seed

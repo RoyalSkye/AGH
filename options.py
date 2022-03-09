@@ -75,7 +75,7 @@ def get_options(args=None):
     # How to train the AM on AGH problem
     parser.add_argument('--fine_tune', action='store_true', help='change a trick and fine tune the model.')
     parser.add_argument('--wo_time', action='store_true', help='remove time information in the feature')
-    parser.add_argument('--rnn_time', action='store_true', help='remove time information in the feature')
+    parser.add_argument('--rnn_time', action='store_true', help='use LSTM or not')
 
     opts = parser.parse_args(args)
 

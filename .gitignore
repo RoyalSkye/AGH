@@ -11,4 +11,4 @@ __pycache__/
 .ipynb_checkpoints
 
 # private files
-data/
+others/
