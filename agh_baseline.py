@@ -101,19 +101,19 @@ def nearest_neighbor(input, problem, return_state=False):
         return cost, state.serve_time
 
 
-def check_insert(start, selected, tour, start_state, tmp_state_dict):
+def check_insert(start, selected, tour, start_state, tmp_state_list):
     mask = start_state.get_mask().squeeze(1)  # [1, n_loc]
     if mask[0, selected] == 1:
         return False, None
     start_state = start_state.update(selected)
-    tmp_state_dict[selected.item()] = copy.deepcopy(start_state)
+    tmp_state_list.append(copy.deepcopy(start_state))
     for s in range(start+1, len(tour)):
         selected = torch.LongTensor([tour[s]])
         mask = start_state.get_mask().squeeze(1)
         if mask[0, selected] == 1:
             return False, None
         start_state = start_state.update(selected)
-        tmp_state_dict[selected.item()] = copy.deepcopy(start_state)
+        tmp_state_list.append(copy.deepcopy(start_state))
 
     return True, start_state
 
@@ -127,7 +127,7 @@ def single_insert(i, input, problem, opt):
                     'tw_right': input['tw_right'][i:i + 1], 'tw_left': input['tw_left'][i:i + 1],
                     'fleet': input['fleet'][i:i + 1]}
     state = problem.make_state(single_input)
-    state_dict = {0: copy.deepcopy(state)}
+    state_list = [copy.deepcopy(state)]
     while not state.all_finished():
         mask = state.get_mask().squeeze(1)  # [1, n_loc]
         steps = state.tour.size(1)
@@ -152,28 +152,26 @@ def single_insert(i, input, problem, opt):
         # insert selected node to the proper position
         if state.prev_a.view(-1) == 0 or selected.item() == 0:  # add to the end
             state = state.update(selected)
-            state_dict[selected.item()] = copy.deepcopy(state)
+            state_list.append(copy.deepcopy(state))
         else:
-            dd = {}
-            tour = state.tour[0].tolist()
+            dd, tour = {}, state.tour[0].tolist()
             for j in range(len(tour) - 1):  # 0->1, 1->2, ..., j-2->j-1
-                old1, old2, new = state.coords[0, tour[j]].item(), state.coords[0, tour[j + 1]].item(), state.coords[
-                    0, selected.item()].item()
-                dd[j] = distance_dict[(old1, new)] + distance_dict[(new, old2)] - distance_dict[(old1, old2)]
+                old1, old2, new = state.coords[0, tour[j]].item(), state.coords[0, tour[j + 1]].item(), state.coords[0, selected.item()].item()
+                dd[j] = distance[0][state.NODE_SIZE * old1 + new] + distance[0][state.NODE_SIZE * new + old2] - distance[0][state.NODE_SIZE * old1 + old2]
             sorted_dd = sorted(dd.items(), key=lambda item: item[1])
             for j in range(len(sorted_dd)):
                 # check whether can insert between sorted_dd[j][0] and sorted_dd[j][0] + 1 or not
                 start = sorted_dd[j][0]
-                tmp_state_dict = copy.deepcopy(state_dict)
-                start_state = tmp_state_dict[tour[start]]
-                insert, tmp_state = check_insert(start, selected, tour, start_state, tmp_state_dict)
+                tmp_state_list = copy.deepcopy(state_list[:start + 1])
+                start_state = tmp_state_list[start]
+                insert, tmp_state = check_insert(start, selected, tour, start_state, tmp_state_list)
                 if insert:
                     # print("insert to {} successfully".format(j))
-                    state, state_dict = tmp_state, tmp_state_dict
+                    state, state_list = tmp_state, tmp_state_list
                     break
                 elif j == len(sorted_dd) - 1:  # fail to insert, add to the end instead.
                     state = state.update(selected)
-                    state_dict[selected.item()] = copy.deepcopy(state)
+                    state_list.append(copy.deepcopy(state))
     selected = torch.LongTensor([0])  # return to depot
     state = state.update(selected)
 
