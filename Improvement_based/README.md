@@ -13,7 +13,7 @@ The implementation of *IEEE Transactions on Knowledge and Data Engineering (TKDE
 We propose a learning-based improvement framework to solve large-scale *Airport Ground Handling (AGH)* instances. Specifically, we leverage the Large Neighborhood Search (LNS) framework, which consists of a pair of *destroy* and *repair* operators, to decompose the global (intractable) optimization problem and re-optimize each sub-problem. The operation scheduling in AGH is formulated as a mixed integer linear programming (MILP) model. To mitigate the need of domain expertise, 1) our proposed framework directly operates on the decision variables of the MILP model; 2) we employ an off-the-shelf solver (e.g., CPLEX) as the repair operator to conduct re-optimization. Our method could efficiently solve large-scale AGH instances with hundreds of flights, while CPLEX would simply stuck, even when searching for a feasible solution.
 
 <p align="center">
-  <img src="../imgs/Overview_LNS.png" width=90% alt="framework"/>
+  <img src="../imgs/overview_lns.png" width=90% alt="framework"/>
 </p>
 
 ## Dependencies

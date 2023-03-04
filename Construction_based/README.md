@@ -13,7 +13,7 @@ The implementation of *IEEE Transactions on Intelligent Transportation Systems (
 We propose a learning-based construction framework to solve *Airport Ground Handling (AGH)* problems in an end-to-end manner. The studied problem is modeled as a multiple-fleet vehicle routing problem (VRP) with miscellaneous constraints, including precedence, time windows, and capacity. It is much more complicated than the simple VRPs (e.g., TSP/CVRP) studied in the major ML conferences. The proposed method could also serve as a simple learning-based baseline for further research on complicated VRPs (e.g., CVRPTW).
 
 <p align="center">
-  <img src="../imgs/Overview.png" width=90% alt="framework"/>
+  <img src="../imgs/overview.png" width=90% alt="framework"/>
 </p>
 
 ## Dependencies

@@ -33,7 +33,7 @@ This repository contains the implementations of our papers studying *Airport Gro
 We propose a learning-based <u>improvement framework</u> to solve large-scale *Airport Ground Handling (AGH)* instances. Specifically, we leverage the Large Neighborhood Search (LNS) framework, which consists of a pair of *destroy* and *repair* operators, to decompose the global (intractable) optimization problem and re-optimize each sub-problem. The operation scheduling in AGH is formulated as a mixed integer linear programming (MILP) model. To mitigate the need of domain expertise, 1) our proposed framework directly operates on the decision variables of the MILP model; 2) we employ an off-the-shelf solver (e.g., CPLEX) as the repair operator to conduct re-optimization. Our method could efficiently solve large-scale AGH instances with hundreds of flights, while CPLEX would simply stuck, even when searching for a feasible solution.
 
 <p align="center">
-  <img src="./imgs/Overview_LNS.png" width=90% alt="framework"/>
+  <img src="./imgs/overview_lns.png" width=90% alt="framework"/>
 </p>
 
 ### Neural Airport Ground Handling
@@ -41,7 +41,7 @@ We propose a learning-based <u>improvement framework</u> to solve large-scale *A
 We propose a learning-based <u>construction framework</u> to solve *Airport Ground Handling (AGH)* problems in an end-to-end manner. The studied problem is modeled as a multiple-fleet vehicle routing problem (VRP) with miscellaneous constraints, including precedence, time windows, and capacity. It is much more complicated than the simple VRPs (e.g., TSP/CVRP) studied in the major ML conferences. The proposed method could also serve as a simple learning-based baseline for further research on complicated VRPs (e.g., CVRPTW).
 
 <p align="center">
-  <img src="./imgs/Overview.png" width=90% alt="framework"/>
+  <img src="./imgs/overview.png" width=90% alt="framework"/>
 </p>
 
 ## File Structure
