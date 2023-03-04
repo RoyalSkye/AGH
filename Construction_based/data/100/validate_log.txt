@@ -1,0 +1,200 @@
+Validating Epoch 0, Validation avg_cost: 775299.1875
+
+Validating Epoch 1, Validation avg_cost: 572717.875
+
+Validating Epoch 2, Validation avg_cost: 448433.03125
+
+Validating Epoch 3, Validation avg_cost: 401971.6875
+
+Validating Epoch 4, Validation avg_cost: 386409.5625
+
+Validating Epoch 5, Validation avg_cost: 370236.875
+
+Validating Epoch 6, Validation avg_cost: 352299.46875
+
+Validating Epoch 7, Validation avg_cost: 341709.46875
+
+Validating Epoch 8, Validation avg_cost: 329447.375
+
+Validating Epoch 9, Validation avg_cost: 321804.40625
+
+Validating Epoch 10, Validation avg_cost: 319185.75
+
+Validating Epoch 11, Validation avg_cost: 312686.53125
+
+Validating Epoch 12, Validation avg_cost: 308013.34375
+
+Validating Epoch 13, Validation avg_cost: 306100.125
+
+Validating Epoch 14, Validation avg_cost: 302965.125
+
+Validating Epoch 15, Validation avg_cost: 300783.03125
+
+Validating Epoch 16, Validation avg_cost: 295332.1875
+
+Validating Epoch 17, Validation avg_cost: 296509.8125
+
+Validating Epoch 18, Validation avg_cost: 294476.78125
+
+Validating Epoch 19, Validation avg_cost: 291692.8125
+
+Validating Epoch 20, Validation avg_cost: 289996.875
+
+Validating Epoch 21, Validation avg_cost: 287784.6875
+
+Validating Epoch 22, Validation avg_cost: 289346.25
+
+Validating Epoch 23, Validation avg_cost: 286050.875
+
+Validating Epoch 24, Validation avg_cost: 283832.96875
+
+Validating Epoch 25, Validation avg_cost: 283125.5
+
+Validating Epoch 26, Validation avg_cost: 280814.65625
+
+Validating Epoch 27, Validation avg_cost: 281263.65625
+
+Validating Epoch 28, Validation avg_cost: 279564.53125
+
+Validating Epoch 29, Validation avg_cost: 277486.84375
+
+Validating Epoch 30, Validation avg_cost: 276694.9375
+
+Validating Epoch 31, Validation avg_cost: 277075.71875
+
+Validating Epoch 32, Validation avg_cost: 275485.65625
+
+Validating Epoch 33, Validation avg_cost: 275048.78125
+
+Validating Epoch 34, Validation avg_cost: 271096.78125
+
+Validating Epoch 35, Validation avg_cost: 270212.75
+
+Validating Epoch 36, Validation avg_cost: 269331.625
+
+Validating Epoch 37, Validation avg_cost: 269606.84375
+
+Validating Epoch 38, Validation avg_cost: 268023.375
+
+Validating Epoch 39, Validation avg_cost: 265430.59375
+
+Validating Epoch 40, Validation avg_cost: 265212.0625
+
+Validating Epoch 41, Validation avg_cost: 263328.71875
+
+Validating Epoch 42, Validation avg_cost: 264134.78125
+
+Validating Epoch 43, Validation avg_cost: 263718.9375
+
+Validating Epoch 44, Validation avg_cost: 262026.3125
+
+Validating Epoch 45, Validation avg_cost: 261918.46875
+
+Validating Epoch 46, Validation avg_cost: 263155.5
+
+Validating Epoch 47, Validation avg_cost: 262093.453125
+
+Validating Epoch 48, Validation avg_cost: 260145.6875
+
+Validating Epoch 49, Validation avg_cost: 260016.90625
+
+Validating Epoch 50, Validation avg_cost: 260155.640625
+
+Validating Epoch 51, Validation avg_cost: 259111.421875
+
+Validating Epoch 52, Validation avg_cost: 258385.515625
+
+Validating Epoch 53, Validation avg_cost: 257043.859375
+
+Validating Epoch 54, Validation avg_cost: 257115.609375
+
+Validating Epoch 55, Validation avg_cost: 256780.953125
+
+Validating Epoch 56, Validation avg_cost: 255839.46875
+
+Validating Epoch 57, Validation avg_cost: 255486.96875
+
+Validating Epoch 58, Validation avg_cost: 255551.8125
+
+Validating Epoch 59, Validation avg_cost: 254321.953125
+
+Validating Epoch 60, Validation avg_cost: 254674.03125
+
+Validating Epoch 61, Validation avg_cost: 254182.4375
+
+Validating Epoch 62, Validation avg_cost: 254281.984375
+
+Validating Epoch 63, Validation avg_cost: 253227.625
+
+Validating Epoch 64, Validation avg_cost: 253622.734375
+
+Validating Epoch 65, Validation avg_cost: 252626.203125
+
+Validating Epoch 66, Validation avg_cost: 254010.578125
+
+Validating Epoch 67, Validation avg_cost: 252620.25
+
+Validating Epoch 68, Validation avg_cost: 252209.625
+
+Validating Epoch 69, Validation avg_cost: 251197.46875
+
+Validating Epoch 70, Validation avg_cost: 251069.921875
+
+Validating Epoch 71, Validation avg_cost: 250483.296875
+
+Validating Epoch 72, Validation avg_cost: 251550.140625
+
+Validating Epoch 73, Validation avg_cost: 250160.828125
+
+Validating Epoch 74, Validation avg_cost: 249960.90625
+
+Validating Epoch 75, Validation avg_cost: 249148.3125
+
+Validating Epoch 76, Validation avg_cost: 249739.53125
+
+Validating Epoch 77, Validation avg_cost: 249782.046875
+
+Validating Epoch 78, Validation avg_cost: 248494.03125
+
+Validating Epoch 79, Validation avg_cost: 248537.953125
+
+Validating Epoch 80, Validation avg_cost: 248728.71875
+
+Validating Epoch 81, Validation avg_cost: 248850.484375
+
+Validating Epoch 82, Validation avg_cost: 249287.953125
+
+Validating Epoch 83, Validation avg_cost: 246262.34375
+
+Validating Epoch 84, Validation avg_cost: 245777.546875
+
+Validating Epoch 85, Validation avg_cost: 245834.140625
+
+Validating Epoch 86, Validation avg_cost: 245314.46875
+
+Validating Epoch 87, Validation avg_cost: 245133.796875
+
+Validating Epoch 88, Validation avg_cost: 244816.90625
+
+Validating Epoch 89, Validation avg_cost: 245342.84375
+
+Validating Epoch 90, Validation avg_cost: 244920.875
+
+Validating Epoch 91, Validation avg_cost: 244916.484375
+
+Validating Epoch 92, Validation avg_cost: 244516.890625
+
+Validating Epoch 93, Validation avg_cost: 244418.96875
+
+Validating Epoch 94, Validation avg_cost: 244053.40625
+
+Validating Epoch 95, Validation avg_cost: 243504.46875
+
+Validating Epoch 96, Validation avg_cost: 243816.25
+
+Validating Epoch 97, Validation avg_cost: 244026.421875
+
+Validating Epoch 98, Validation avg_cost: 243080.59375
+
+Validating Epoch 99, Validation avg_cost: 244689.140625
+

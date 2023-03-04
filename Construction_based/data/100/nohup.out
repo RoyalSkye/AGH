@@ -1,0 +1,1838 @@
+{'baseline': 'rollout',
+ 'batch_size': 64,
+ 'bl_alpha': 0.05,
+ 'bl_warmup_epochs': 0,
+ 'checkpoint_encoder': False,
+ 'checkpoint_epochs': 1,
+ 'data_distribution': None,
+ 'embedding_dim': 128,
+ 'epoch_size': 12800,
+ 'epoch_start': 0,
+ 'eval_batch_size': 1000,
+ 'eval_only': False,
+ 'exp_beta': 0.8,
+ 'fine_tune': False,
+ 'graph_size': 100,
+ 'hidden_dim': 128,
+ 'load_path': None,
+ 'log_dir': 'logs',
+ 'log_stdout': True,
+ 'log_step': 50,
+ 'lr_critic': 0.0001,
+ 'lr_decay': 1.0,
+ 'lr_model': 0.0001,
+ 'max_grad_norm': 1.0,
+ 'model': 'attention',
+ 'n_encode_layers': 3,
+ 'n_epochs': 100,
+ 'no_cuda': False,
+ 'no_progress_bar': True,
+ 'no_tensorboard': True,
+ 'normalization': 'batch',
+ 'optimizer': 'Adam',
+ 'output_dir': 'outputs',
+ 'problem': 'agh',
+ 'resume': None,
+ 'rnn_time': False,
+ 'run_name': 'run_20220219T174526',
+ 'save_dir': 'outputs/agh_100/run_20220219T174526',
+ 'seed': 1234,
+ 'shrink_size': None,
+ 'tanh_clipping': 10.0,
+ 'use_cuda': True,
+ 'val_dataset': None,
+ 'val_size': 1000,
+ 'wo_time': False}
+Evaluating baseline model on evaluation dataset
+Start train epoch 0, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 0, train_batch_id: 0, avg_cost: 910337.75
+loss: 8255793.0, grad norm: 724164.375, clipped: 1.0
+epoch: 0, train_batch_id: 50, avg_cost: 837658.75
+loss: 8831148.0, grad norm: 857782.5625, clipped: 1.0
+epoch: 0, train_batch_id: 100, avg_cost: 822537.125
+loss: 8719162.0, grad norm: 855645.8125, clipped: 1.0
+epoch: 0, train_batch_id: 150, avg_cost: 813337.0
+loss: 8141639.5, grad norm: 908056.625, clipped: 1.0
+Finished epoch 0, took 00:10:31 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 775299.1875 +- 1961.8533935546875
+Evaluating candidate model on evaluation dataset
+Epoch 0 candidate mean 774407.375, baseline epoch 0 mean 1217427.0, difference -443019.625
+p-value: 0.0
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 1, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 1, train_batch_id: 0, avg_cost: 802845.0
+loss: -673818.4375, grad norm: 192775.09375, clipped: 1.0
+epoch: 1, train_batch_id: 50, avg_cost: 720417.75
+loss: 846018.9375, grad norm: 297443.5625, clipped: 1.0
+epoch: 1, train_batch_id: 100, avg_cost: 656169.125
+loss: 1575633.125, grad norm: 455281.09375, clipped: 1.0
+epoch: 1, train_batch_id: 150, avg_cost: 637059.9375
+loss: 2176630.75, grad norm: 705215.375, clipped: 1.0
+Finished epoch 1, took 00:10:01 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 572717.875 +- 909.8642578125
+Evaluating candidate model on evaluation dataset
+Epoch 1 candidate mean 573315.6875, baseline epoch 0 mean 773157.6875, difference -199842.0
+p-value: 0.0
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 2, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 2, train_batch_id: 0, avg_cost: 622700.8125
+loss: -677249.125, grad norm: 234890.453125, clipped: 1.0
+epoch: 2, train_batch_id: 50, avg_cost: 582052.3125
+loss: -165515.796875, grad norm: 161324.40625, clipped: 1.0
+epoch: 2, train_batch_id: 100, avg_cost: 546312.1875
+loss: 351261.90625, grad norm: 203706.875, clipped: 1.0
+epoch: 2, train_batch_id: 150, avg_cost: 518011.9375
+loss: 784288.1875, grad norm: 252470.453125, clipped: 1.0
+Finished epoch 2, took 00:09:41 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 448433.03125 +- 906.1277465820312
+Evaluating candidate model on evaluation dataset
+Epoch 2 candidate mean 447943.28125, baseline epoch 1 mean 572458.5625, difference -124515.28125
+p-value: 0.0
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 3, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 3, train_batch_id: 0, avg_cost: 508545.59375
+loss: -791080.9375, grad norm: 228518.03125, clipped: 1.0
+epoch: 3, train_batch_id: 50, avg_cost: 492749.0
+loss: -666648.0625, grad norm: 207717.59375, clipped: 1.0
+epoch: 3, train_batch_id: 100, avg_cost: 479998.9375
+loss: -438785.96875, grad norm: 159914.4375, clipped: 1.0
+epoch: 3, train_batch_id: 150, avg_cost: 474215.6875
+loss: -282923.0, grad norm: 145958.640625, clipped: 1.0
+Finished epoch 3, took 00:09:36 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 401971.6875 +- 813.4630126953125
+Evaluating candidate model on evaluation dataset
+Epoch 3 candidate mean 402097.875, baseline epoch 2 mean 446850.3125, difference -44752.4375
+p-value: 6.783659604461584e-280
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 4, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 4, train_batch_id: 0, avg_cost: 460324.5
+loss: -742716.875, grad norm: 192951.96875, clipped: 1.0
+epoch: 4, train_batch_id: 50, avg_cost: 460863.34375
+loss: -762215.125, grad norm: 202453.3125, clipped: 1.0
+epoch: 4, train_batch_id: 100, avg_cost: 450553.5
+loss: -642814.625, grad norm: 167966.78125, clipped: 1.0
+epoch: 4, train_batch_id: 150, avg_cost: 448141.09375
+loss: -550996.6875, grad norm: 166571.90625, clipped: 1.0
+Finished epoch 4, took 00:09:27 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 386409.5625 +- 762.9036254882812
+Evaluating candidate model on evaluation dataset
+Epoch 4 candidate mean 383808.0, baseline epoch 3 mean 399969.90625, difference -16161.90625
+p-value: 6.381091309241726e-77
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 5, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 5, train_batch_id: 0, avg_cost: 441588.9375
+loss: -627367.875, grad norm: 190416.34375, clipped: 1.0
+epoch: 5, train_batch_id: 50, avg_cost: 436235.0
+loss: -588660.125, grad norm: 171729.609375, clipped: 1.0
+epoch: 5, train_batch_id: 100, avg_cost: 437259.5
+loss: -528485.4375, grad norm: 176270.5625, clipped: 1.0
+epoch: 5, train_batch_id: 150, avg_cost: 427493.0625
+loss: -468512.90625, grad norm: 168740.75, clipped: 1.0
+Finished epoch 5, took 00:09:23 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 370236.875 +- 762.550537109375
+Evaluating candidate model on evaluation dataset
+Epoch 5 candidate mean 368118.59375, baseline epoch 4 mean 383682.28125, difference -15563.6875
+p-value: 3.824919710899015e-86
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 6, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 6, train_batch_id: 0, avg_cost: 417852.3125
+loss: -505510.65625, grad norm: 164900.59375, clipped: 1.0
+epoch: 6, train_batch_id: 50, avg_cost: 416012.53125
+loss: -470644.8125, grad norm: 165094.34375, clipped: 1.0
+epoch: 6, train_batch_id: 100, avg_cost: 417655.8125
+loss: -417948.9375, grad norm: 145559.5625, clipped: 1.0
+epoch: 6, train_batch_id: 150, avg_cost: 401775.375
+loss: -323611.28125, grad norm: 143067.765625, clipped: 1.0
+Finished epoch 6, took 00:09:33 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 352299.46875 +- 797.3521728515625
+Evaluating candidate model on evaluation dataset
+Epoch 6 candidate mean 353511.5625, baseline epoch 5 mean 370507.09375, difference -16995.53125
+p-value: 1.674717879891875e-79
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 7, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 7, train_batch_id: 0, avg_cost: 393686.78125
+loss: -410079.09375, grad norm: 158358.9375, clipped: 1.0
+epoch: 7, train_batch_id: 50, avg_cost: 388244.75
+loss: -386042.0, grad norm: 146398.484375, clipped: 1.0
+epoch: 7, train_batch_id: 100, avg_cost: 392464.0
+loss: -377104.28125, grad norm: 155170.71875, clipped: 1.0
+epoch: 7, train_batch_id: 150, avg_cost: 390303.0
+loss: -340345.21875, grad norm: 176615.53125, clipped: 1.0
+Finished epoch 7, took 00:09:34 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 341709.46875 +- 716.587646484375
+Evaluating candidate model on evaluation dataset
+Epoch 7 candidate mean 341602.8125, baseline epoch 6 mean 351902.15625, difference -10299.34375
+p-value: 6.676868361423763e-42
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 8, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 8, train_batch_id: 0, avg_cost: 381668.8125
+loss: -342449.15625, grad norm: 157946.46875, clipped: 1.0
+epoch: 8, train_batch_id: 50, avg_cost: 369875.46875
+loss: -260950.0, grad norm: 127961.1875, clipped: 1.0
+epoch: 8, train_batch_id: 100, avg_cost: 366430.25
+loss: -268901.46875, grad norm: 131337.9375, clipped: 1.0
+epoch: 8, train_batch_id: 150, avg_cost: 368724.1875
+loss: -224159.828125, grad norm: 139012.359375, clipped: 1.0
+Finished epoch 8, took 00:09:26 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 329447.375 +- 698.008056640625
+Evaluating candidate model on evaluation dataset
+Epoch 8 candidate mean 328216.125, baseline epoch 7 mean 340484.28125, difference -12268.15625
+p-value: 3.312038225531773e-63
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 9, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 9, train_batch_id: 0, avg_cost: 361533.875
+loss: -268424.90625, grad norm: 120374.4921875, clipped: 1.0
+epoch: 9, train_batch_id: 50, avg_cost: 365109.84375
+loss: -285287.71875, grad norm: 145377.75, clipped: 1.0
+epoch: 9, train_batch_id: 100, avg_cost: 361552.78125
+loss: -220459.734375, grad norm: 132370.546875, clipped: 1.0
+epoch: 9, train_batch_id: 150, avg_cost: 357281.5625
+loss: -233365.28125, grad norm: 147163.296875, clipped: 1.0
+Finished epoch 9, took 00:09:33 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 321804.40625 +- 655.198974609375
+Evaluating candidate model on evaluation dataset
+Epoch 9 candidate mean 323566.15625, baseline epoch 8 mean 330247.96875, difference -6681.8125
+p-value: 2.9580640798978505e-25
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 10, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 10, train_batch_id: 0, avg_cost: 352729.78125
+loss: -245685.046875, grad norm: 120828.296875, clipped: 1.0
+epoch: 10, train_batch_id: 50, avg_cost: 351294.8125
+loss: -194199.078125, grad norm: 118914.671875, clipped: 1.0
+epoch: 10, train_batch_id: 100, avg_cost: 349780.59375
+loss: -191288.140625, grad norm: 118939.15625, clipped: 1.0
+epoch: 10, train_batch_id: 150, avg_cost: 346212.46875
+loss: -198763.75, grad norm: 124198.6796875, clipped: 1.0
+Finished epoch 10, took 00:09:29 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 319185.75 +- 617.3339233398438
+Evaluating candidate model on evaluation dataset
+Epoch 10 candidate mean 318749.1875, baseline epoch 9 mean 322592.84375, difference -3843.65625
+p-value: 1.2248091203195012e-09
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 11, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 11, train_batch_id: 0, avg_cost: 347329.375
+loss: -192541.5625, grad norm: 108263.421875, clipped: 1.0
+epoch: 11, train_batch_id: 50, avg_cost: 357567.46875
+loss: -283454.34375, grad norm: 160156.65625, clipped: 1.0
+epoch: 11, train_batch_id: 100, avg_cost: 340832.8125
+loss: -164782.546875, grad norm: 114318.53125, clipped: 1.0
+epoch: 11, train_batch_id: 150, avg_cost: 340681.9375
+loss: -145530.875, grad norm: 100436.5390625, clipped: 1.0
+Finished epoch 11, took 00:09:24 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 312686.53125 +- 627.239013671875
+Evaluating candidate model on evaluation dataset
+Epoch 11 candidate mean 313204.125, baseline epoch 10 mean 318416.1875, difference -5212.0625
+p-value: 1.9027659777575602e-17
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 12, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 12, train_batch_id: 0, avg_cost: 339781.0625
+loss: -171222.21875, grad norm: 113151.828125, clipped: 1.0
+epoch: 12, train_batch_id: 50, avg_cost: 337084.125
+loss: -172081.71875, grad norm: 109493.6796875, clipped: 1.0
+epoch: 12, train_batch_id: 100, avg_cost: 337503.5
+loss: -170378.578125, grad norm: 128144.796875, clipped: 1.0
+epoch: 12, train_batch_id: 150, avg_cost: 338655.5
+loss: -136022.984375, grad norm: 107410.7578125, clipped: 1.0
+Finished epoch 12, took 00:09:22 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 308013.34375 +- 599.1699829101562
+Evaluating candidate model on evaluation dataset
+Epoch 12 candidate mean 308302.96875, baseline epoch 11 mean 313898.5, difference -5595.53125
+p-value: 1.37377284044195e-22
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 13, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 13, train_batch_id: 0, avg_cost: 332355.75
+loss: -153622.109375, grad norm: 109492.125, clipped: 1.0
+epoch: 13, train_batch_id: 50, avg_cost: 333590.1875
+loss: -159330.296875, grad norm: 112182.2265625, clipped: 1.0
+epoch: 13, train_batch_id: 100, avg_cost: 333636.375
+loss: -164094.4375, grad norm: 111520.515625, clipped: 1.0
+epoch: 13, train_batch_id: 150, avg_cost: 330129.8125
+loss: -139572.015625, grad norm: 116921.640625, clipped: 1.0
+Finished epoch 13, took 00:09:25 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 306100.125 +- 590.9195556640625
+Evaluating candidate model on evaluation dataset
+Epoch 13 candidate mean 305353.46875, baseline epoch 12 mean 307258.5, difference -1905.03125
+p-value: 0.00014089415595636834
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 14, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 14, train_batch_id: 0, avg_cost: 327728.0625
+loss: -130598.5546875, grad norm: 98792.7734375, clipped: 1.0
+epoch: 14, train_batch_id: 50, avg_cost: 324805.8125
+loss: -93346.7265625, grad norm: 89635.578125, clipped: 1.0
+epoch: 14, train_batch_id: 100, avg_cost: 325779.9375
+loss: -101220.828125, grad norm: 86388.328125, clipped: 1.0
+epoch: 14, train_batch_id: 150, avg_cost: 321504.4375
+loss: -83003.3046875, grad norm: 89485.421875, clipped: 1.0
+Finished epoch 14, took 00:09:19 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 302965.125 +- 586.92138671875
+Evaluating candidate model on evaluation dataset
+Epoch 14 candidate mean 303158.71875, baseline epoch 13 mean 307043.4375, difference -3884.71875
+p-value: 5.91193297085136e-12
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 15, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 15, train_batch_id: 0, avg_cost: 324170.28125
+loss: -135337.265625, grad norm: 105502.3359375, clipped: 1.0
+epoch: 15, train_batch_id: 50, avg_cost: 318330.03125
+loss: -110479.1484375, grad norm: 104745.2890625, clipped: 1.0
+epoch: 15, train_batch_id: 100, avg_cost: 319122.6875
+loss: -79723.984375, grad norm: 96394.125, clipped: 1.0
+epoch: 15, train_batch_id: 150, avg_cost: 321950.5
+loss: -90481.8359375, grad norm: 102733.578125, clipped: 1.0
+Finished epoch 15, took 00:09:21 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 300783.03125 +- 576.2513427734375
+Evaluating candidate model on evaluation dataset
+Epoch 15 candidate mean 301815.875, baseline epoch 14 mean 303475.96875, difference -1660.09375
+p-value: 0.0011314064728537466
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 16, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 16, train_batch_id: 0, avg_cost: 315970.65625
+loss: -85313.7734375, grad norm: 84982.3203125, clipped: 1.0
+epoch: 16, train_batch_id: 50, avg_cost: 316251.125
+loss: -80284.140625, grad norm: 86775.3125, clipped: 1.0
+epoch: 16, train_batch_id: 100, avg_cost: 318773.75
+loss: -89248.8515625, grad norm: 92328.625, clipped: 1.0
+epoch: 16, train_batch_id: 150, avg_cost: 316338.25
+loss: -73127.1875, grad norm: 89885.828125, clipped: 1.0
+Finished epoch 16, took 00:09:18 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 295332.1875 +- 557.493408203125
+Evaluating candidate model on evaluation dataset
+Epoch 16 candidate mean 296058.03125, baseline epoch 15 mean 302073.71875, difference -6015.6875
+p-value: 9.499473170139656e-34
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 17, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 17, train_batch_id: 0, avg_cost: 311979.4375
+loss: -69301.59375, grad norm: 84926.53125, clipped: 1.0
+epoch: 17, train_batch_id: 50, avg_cost: 308352.34375
+loss: -76160.6640625, grad norm: 90020.0078125, clipped: 1.0
+epoch: 17, train_batch_id: 100, avg_cost: 309663.0
+loss: -75897.2734375, grad norm: 87529.2890625, clipped: 1.0
+epoch: 17, train_batch_id: 150, avg_cost: 306725.5
+loss: -53442.96875, grad norm: 93534.828125, clipped: 1.0
+Finished epoch 17, took 00:09:21 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 296509.8125 +- 545.195556640625
+Evaluating candidate model on evaluation dataset
+Epoch 17 candidate mean 296235.1875, baseline epoch 16 mean 295116.21875, difference 1118.96875
+Start train epoch 18, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 18, train_batch_id: 0, avg_cost: 313716.625
+loss: -81642.8984375, grad norm: 80287.140625, clipped: 1.0
+epoch: 18, train_batch_id: 50, avg_cost: 309795.09375
+loss: -71710.7421875, grad norm: 86957.8828125, clipped: 1.0
+epoch: 18, train_batch_id: 100, avg_cost: 310405.0625
+loss: -74699.9375, grad norm: 91827.8046875, clipped: 1.0
+epoch: 18, train_batch_id: 150, avg_cost: 309003.59375
+loss: -54486.90234375, grad norm: 84902.8515625, clipped: 1.0
+Finished epoch 18, took 00:09:23 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 294476.78125 +- 559.8284912109375
+Evaluating candidate model on evaluation dataset
+Epoch 18 candidate mean 294508.15625, baseline epoch 16 mean 295116.21875, difference -608.0625
+p-value: 0.08930007885007157
+Start train epoch 19, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 19, train_batch_id: 0, avg_cost: 312015.625
+loss: -54766.5625, grad norm: 89604.3125, clipped: 1.0
+epoch: 19, train_batch_id: 50, avg_cost: 306217.375
+loss: -43706.3203125, grad norm: 81721.3671875, clipped: 1.0
+epoch: 19, train_batch_id: 100, avg_cost: 308623.6875
+loss: -48603.83984375, grad norm: 80634.9140625, clipped: 1.0
+epoch: 19, train_batch_id: 150, avg_cost: 307450.375
+loss: -40209.69921875, grad norm: 83956.71875, clipped: 1.0
+Finished epoch 19, took 00:09:20 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 291692.8125 +- 546.0851440429688
+Evaluating candidate model on evaluation dataset
+Epoch 19 candidate mean 292667.65625, baseline epoch 16 mean 295116.21875, difference -2448.5625
+p-value: 3.843244268206652e-07
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 20, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 20, train_batch_id: 0, avg_cost: 303022.125
+loss: -52190.56640625, grad norm: 72332.6484375, clipped: 1.0
+epoch: 20, train_batch_id: 50, avg_cost: 307266.6875
+loss: -60564.09375, grad norm: 85426.5859375, clipped: 1.0
+epoch: 20, train_batch_id: 100, avg_cost: 309058.9375
+loss: -63393.6015625, grad norm: 85926.0, clipped: 1.0
+epoch: 20, train_batch_id: 150, avg_cost: 305441.96875
+loss: -47498.8125, grad norm: 81679.03125, clipped: 1.0
+Finished epoch 20, took 00:09:16 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 289996.875 +- 533.2123413085938
+Evaluating candidate model on evaluation dataset
+Epoch 20 candidate mean 290648.90625, baseline epoch 19 mean 292941.8125, difference -2292.90625
+p-value: 1.211385016179829e-06
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 21, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 21, train_batch_id: 0, avg_cost: 301160.5
+loss: -48719.15234375, grad norm: 73377.3828125, clipped: 1.0
+epoch: 21, train_batch_id: 50, avg_cost: 302514.8125
+loss: -39821.87890625, grad norm: 80530.4140625, clipped: 1.0
+epoch: 21, train_batch_id: 100, avg_cost: 301299.8125
+loss: -47343.7890625, grad norm: 80454.5, clipped: 1.0
+epoch: 21, train_batch_id: 150, avg_cost: 300437.03125
+loss: -53209.26953125, grad norm: 82551.890625, clipped: 1.0
+Finished epoch 21, took 00:09:14 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 287784.6875 +- 511.701416015625
+Evaluating candidate model on evaluation dataset
+Epoch 21 candidate mean 288619.96875, baseline epoch 20 mean 290562.65625, difference -1942.6875
+p-value: 8.356592961754565e-06
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 22, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 22, train_batch_id: 0, avg_cost: 296763.25
+loss: -45140.26171875, grad norm: 69976.671875, clipped: 1.0
+epoch: 22, train_batch_id: 50, avg_cost: 301072.6875
+loss: -50835.25390625, grad norm: 98011.65625, clipped: 1.0
+epoch: 22, train_batch_id: 100, avg_cost: 298149.78125
+loss: -46183.53125, grad norm: 76745.2109375, clipped: 1.0
+epoch: 22, train_batch_id: 150, avg_cost: 296511.6875
+loss: -45440.97265625, grad norm: 67164.375, clipped: 1.0
+Finished epoch 22, took 00:09:08 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 289346.25 +- 559.4036865234375
+Evaluating candidate model on evaluation dataset
+Epoch 22 candidate mean 290897.09375, baseline epoch 21 mean 289658.15625, difference 1238.9375
+Start train epoch 23, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 23, train_batch_id: 0, avg_cost: 298345.5625
+loss: -45705.37109375, grad norm: 87470.7109375, clipped: 1.0
+epoch: 23, train_batch_id: 50, avg_cost: 298539.375
+loss: -30355.744140625, grad norm: 75895.34375, clipped: 1.0
+epoch: 23, train_batch_id: 100, avg_cost: 294303.09375
+loss: -24372.099609375, grad norm: 77842.484375, clipped: 1.0
+epoch: 23, train_batch_id: 150, avg_cost: 297964.96875
+loss: -34688.03515625, grad norm: 75032.7421875, clipped: 1.0
+Finished epoch 23, took 00:09:10 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 286050.875 +- 507.4203186035156
+Evaluating candidate model on evaluation dataset
+Epoch 23 candidate mean 287798.53125, baseline epoch 21 mean 289658.15625, difference -1859.625
+p-value: 1.6736088327891164e-05
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 24, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 24, train_batch_id: 0, avg_cost: 297672.375
+loss: -33270.29296875, grad norm: 72594.921875, clipped: 1.0
+epoch: 24, train_batch_id: 50, avg_cost: 294173.5625
+loss: -48772.3046875, grad norm: 81245.4140625, clipped: 1.0
+epoch: 24, train_batch_id: 100, avg_cost: 293882.28125
+loss: -29298.806640625, grad norm: 74824.8046875, clipped: 1.0
+epoch: 24, train_batch_id: 150, avg_cost: 297606.0
+loss: -35862.6015625, grad norm: 68354.4921875, clipped: 1.0
+Finished epoch 24, took 00:09:07 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 283832.96875 +- 469.51043701171875
+Evaluating candidate model on evaluation dataset
+Epoch 24 candidate mean 284074.71875, baseline epoch 23 mean 286518.46875, difference -2443.75
+p-value: 3.593317159948714e-09
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 25, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 25, train_batch_id: 0, avg_cost: 297176.1875
+loss: -42110.2421875, grad norm: 74593.7890625, clipped: 1.0
+epoch: 25, train_batch_id: 50, avg_cost: 292411.8125
+loss: -28301.708984375, grad norm: 77048.84375, clipped: 1.0
+epoch: 25, train_batch_id: 100, avg_cost: 290503.8125
+loss: -37477.69921875, grad norm: 81101.96875, clipped: 1.0
+epoch: 25, train_batch_id: 150, avg_cost: 294736.03125
+loss: -37638.90234375, grad norm: 79332.25, clipped: 1.0
+Finished epoch 25, took 00:09:06 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 283125.5 +- 506.37835693359375
+Evaluating candidate model on evaluation dataset
+Epoch 25 candidate mean 284026.625, baseline epoch 24 mean 284306.875, difference -280.25
+p-value: 0.24275211192991386
+Start train epoch 26, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 26, train_batch_id: 0, avg_cost: 292856.125
+loss: -36968.5390625, grad norm: 68116.75, clipped: 1.0
+epoch: 26, train_batch_id: 50, avg_cost: 291768.46875
+loss: -23196.515625, grad norm: 77772.34375, clipped: 1.0
+epoch: 26, train_batch_id: 100, avg_cost: 292746.25
+loss: -24090.97265625, grad norm: 67612.796875, clipped: 1.0
+epoch: 26, train_batch_id: 150, avg_cost: 291782.15625
+loss: -27214.587890625, grad norm: 68744.7421875, clipped: 1.0
+Finished epoch 26, took 00:09:05 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 280814.65625 +- 464.90789794921875
+Evaluating candidate model on evaluation dataset
+Epoch 26 candidate mean 281485.40625, baseline epoch 24 mean 284306.875, difference -2821.46875
+p-value: 1.9472794840661355e-11
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 27, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 27, train_batch_id: 0, avg_cost: 291813.65625
+loss: -39024.7265625, grad norm: 67515.09375, clipped: 1.0
+epoch: 27, train_batch_id: 50, avg_cost: 291774.53125
+loss: -38092.14453125, grad norm: 75446.28125, clipped: 1.0
+epoch: 27, train_batch_id: 100, avg_cost: 292919.125
+loss: -38870.54296875, grad norm: 74001.40625, clipped: 1.0
+epoch: 27, train_batch_id: 150, avg_cost: 295190.875
+loss: -42888.8203125, grad norm: 78409.203125, clipped: 1.0
+Finished epoch 27, took 00:09:06 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 281263.65625 +- 486.06689453125
+Evaluating candidate model on evaluation dataset
+Epoch 27 candidate mean 281758.59375, baseline epoch 26 mean 280888.78125, difference 869.8125
+Start train epoch 28, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 28, train_batch_id: 0, avg_cost: 287454.0
+loss: -29820.654296875, grad norm: 74103.0703125, clipped: 1.0
+epoch: 28, train_batch_id: 50, avg_cost: 287993.65625
+loss: -36157.9921875, grad norm: 68637.6328125, clipped: 1.0
+epoch: 28, train_batch_id: 100, avg_cost: 290504.96875
+loss: -30624.484375, grad norm: 66775.875, clipped: 1.0
+epoch: 28, train_batch_id: 150, avg_cost: 287907.46875
+loss: -24518.310546875, grad norm: 60063.04296875, clipped: 1.0
+Finished epoch 28, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 279564.53125 +- 466.1093444824219
+Evaluating candidate model on evaluation dataset
+Epoch 28 candidate mean 280476.8125, baseline epoch 26 mean 280888.78125, difference -411.96875
+p-value: 0.14222052270091315
+Start train epoch 29, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 29, train_batch_id: 0, avg_cost: 289306.6875
+loss: -22456.19921875, grad norm: 61524.0390625, clipped: 1.0
+epoch: 29, train_batch_id: 50, avg_cost: 289731.34375
+loss: -31210.6875, grad norm: 71936.6953125, clipped: 1.0
+epoch: 29, train_batch_id: 100, avg_cost: 290454.375
+loss: -36683.25, grad norm: 75728.0, clipped: 1.0
+epoch: 29, train_batch_id: 150, avg_cost: 285325.625
+loss: -25060.427734375, grad norm: 73041.2890625, clipped: 1.0
+Finished epoch 29, took 00:09:06 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 277486.84375 +- 471.9148864746094
+Evaluating candidate model on evaluation dataset
+Epoch 29 candidate mean 278779.53125, baseline epoch 26 mean 280888.78125, difference -2109.25
+p-value: 4.1290992306471396e-08
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 30, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 30, train_batch_id: 0, avg_cost: 286569.09375
+loss: -27782.306640625, grad norm: 64405.59765625, clipped: 1.0
+epoch: 30, train_batch_id: 50, avg_cost: 288249.75
+loss: -25479.15234375, grad norm: 65930.9375, clipped: 1.0
+epoch: 30, train_batch_id: 100, avg_cost: 284472.0625
+loss: -17214.25390625, grad norm: 61238.3125, clipped: 1.0
+epoch: 30, train_batch_id: 150, avg_cost: 287370.21875
+loss: -31078.185546875, grad norm: 75190.6640625, clipped: 1.0
+Finished epoch 30, took 00:09:10 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 276694.9375 +- 462.67840576171875
+Evaluating candidate model on evaluation dataset
+Epoch 30 candidate mean 277332.40625, baseline epoch 29 mean 278483.09375, difference -1150.6875
+p-value: 0.0016346285045695183
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 31, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 31, train_batch_id: 0, avg_cost: 284659.5
+loss: -24504.25390625, grad norm: 59372.265625, clipped: 1.0
+epoch: 31, train_batch_id: 50, avg_cost: 287197.0625
+loss: -27016.36328125, grad norm: 74451.2265625, clipped: 1.0
+epoch: 31, train_batch_id: 100, avg_cost: 282802.9375
+loss: -30570.41015625, grad norm: 67428.78125, clipped: 1.0
+epoch: 31, train_batch_id: 150, avg_cost: 282677.6875
+loss: -20538.263671875, grad norm: 75704.375, clipped: 1.0
+Finished epoch 31, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 277075.71875 +- 494.8244323730469
+Evaluating candidate model on evaluation dataset
+Epoch 31 candidate mean 278184.125, baseline epoch 30 mean 278313.28125, difference -129.15625
+p-value: 0.3693060073541009
+Start train epoch 32, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 32, train_batch_id: 0, avg_cost: 282674.71875
+loss: -23145.029296875, grad norm: 69607.8828125, clipped: 1.0
+epoch: 32, train_batch_id: 50, avg_cost: 281306.3125
+loss: -18093.4296875, grad norm: 59901.81640625, clipped: 1.0
+epoch: 32, train_batch_id: 100, avg_cost: 284902.125
+loss: -25890.271484375, grad norm: 67851.8203125, clipped: 1.0
+epoch: 32, train_batch_id: 150, avg_cost: 284467.8125
+loss: -16739.791015625, grad norm: 68268.0078125, clipped: 1.0
+Finished epoch 32, took 00:09:05 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 275485.65625 +- 456.1845703125
+Evaluating candidate model on evaluation dataset
+Epoch 32 candidate mean 276511.28125, baseline epoch 30 mean 278313.28125, difference -1802.0
+p-value: 4.265310599418475e-06
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 33, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 33, train_batch_id: 0, avg_cost: 281259.03125
+loss: -30836.755859375, grad norm: 58720.859375, clipped: 1.0
+epoch: 33, train_batch_id: 50, avg_cost: 283935.5
+loss: -29541.03515625, grad norm: 65307.3828125, clipped: 1.0
+epoch: 33, train_batch_id: 100, avg_cost: 283649.75
+loss: -24757.166015625, grad norm: 63295.2578125, clipped: 1.0
+epoch: 33, train_batch_id: 150, avg_cost: 282614.5
+loss: -27973.837890625, grad norm: 70305.3125, clipped: 1.0
+Finished epoch 33, took 00:09:04 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 275048.78125 +- 482.2706298828125
+Evaluating candidate model on evaluation dataset
+Epoch 33 candidate mean 275352.0, baseline epoch 32 mean 276206.90625, difference -854.90625
+p-value: 0.017809393406262676
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 34, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 34, train_batch_id: 0, avg_cost: 282632.6875
+loss: -18793.205078125, grad norm: 65081.84375, clipped: 1.0
+epoch: 34, train_batch_id: 50, avg_cost: 284082.5
+loss: -20569.435546875, grad norm: 63922.41015625, clipped: 1.0
+epoch: 34, train_batch_id: 100, avg_cost: 278996.65625
+loss: -10774.529296875, grad norm: 57600.30859375, clipped: 1.0
+epoch: 34, train_batch_id: 150, avg_cost: 280486.75
+loss: -13148.0283203125, grad norm: 61680.22265625, clipped: 1.0
+Finished epoch 34, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 271096.78125 +- 436.6752624511719
+Evaluating candidate model on evaluation dataset
+Epoch 34 candidate mean 271694.09375, baseline epoch 33 mean 275518.5625, difference -3824.46875
+p-value: 1.1382510517430004e-27
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 35, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 35, train_batch_id: 0, avg_cost: 276303.875
+loss: -26535.666015625, grad norm: 53352.80078125, clipped: 1.0
+epoch: 35, train_batch_id: 50, avg_cost: 278503.6875
+loss: -16558.990234375, grad norm: 61222.296875, clipped: 1.0
+epoch: 35, train_batch_id: 100, avg_cost: 278469.875
+loss: -22260.23046875, grad norm: 63368.23828125, clipped: 1.0
+epoch: 35, train_batch_id: 150, avg_cost: 278147.5
+loss: -31613.982421875, grad norm: 55667.37890625, clipped: 1.0
+Finished epoch 35, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 270212.75 +- 453.4808044433594
+Evaluating candidate model on evaluation dataset
+Epoch 35 candidate mean 270076.28125, baseline epoch 34 mean 270877.0625, difference -800.78125
+p-value: 0.009726990897731765
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 36, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 36, train_batch_id: 0, avg_cost: 279914.21875
+loss: -21390.029296875, grad norm: 54379.17578125, clipped: 1.0
+epoch: 36, train_batch_id: 50, avg_cost: 278661.875
+loss: -25029.44921875, grad norm: 63627.12890625, clipped: 1.0
+epoch: 36, train_batch_id: 100, avg_cost: 275489.9375
+loss: -20754.787109375, grad norm: 57831.03125, clipped: 1.0
+epoch: 36, train_batch_id: 150, avg_cost: 278554.8125
+loss: -16744.712890625, grad norm: 59757.3828125, clipped: 1.0
+Finished epoch 36, took 00:09:00 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 269331.625 +- 449.16949462890625
+Evaluating candidate model on evaluation dataset
+Epoch 36 candidate mean 269683.96875, baseline epoch 35 mean 271413.625, difference -1729.65625
+p-value: 1.8800275845336982e-07
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 37, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 37, train_batch_id: 0, avg_cost: 274481.78125
+loss: -27268.384765625, grad norm: 65498.3828125, clipped: 1.0
+epoch: 37, train_batch_id: 50, avg_cost: 278341.4375
+loss: -28632.95703125, grad norm: 54937.58203125, clipped: 1.0
+epoch: 37, train_batch_id: 100, avg_cost: 275490.40625
+loss: -21906.533203125, grad norm: 64835.1875, clipped: 1.0
+epoch: 37, train_batch_id: 150, avg_cost: 274964.375
+loss: -24565.8203125, grad norm: 63580.453125, clipped: 1.0
+Finished epoch 37, took 00:09:04 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 269606.84375 +- 450.2743225097656
+Evaluating candidate model on evaluation dataset
+Epoch 37 candidate mean 270188.8125, baseline epoch 36 mean 269376.59375, difference 812.21875
+Start train epoch 38, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 38, train_batch_id: 0, avg_cost: 276083.09375
+loss: -27893.150390625, grad norm: 68182.0, clipped: 1.0
+epoch: 38, train_batch_id: 50, avg_cost: 273898.5625
+loss: -16656.546875, grad norm: 51025.76953125, clipped: 1.0
+epoch: 38, train_batch_id: 100, avg_cost: 275724.0625
+loss: -18799.6484375, grad norm: 64134.953125, clipped: 1.0
+epoch: 38, train_batch_id: 150, avg_cost: 278070.0
+loss: -25449.892578125, grad norm: 64102.3203125, clipped: 1.0
+Finished epoch 38, took 00:09:00 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 268023.375 +- 441.10986328125
+Evaluating candidate model on evaluation dataset
+Epoch 38 candidate mean 268051.4375, baseline epoch 36 mean 269376.59375, difference -1325.15625
+p-value: 6.669813017210061e-05
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 39, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 39, train_batch_id: 0, avg_cost: 276517.71875
+loss: -21690.154296875, grad norm: 50658.734375, clipped: 1.0
+epoch: 39, train_batch_id: 50, avg_cost: 271629.375
+loss: -15552.9443359375, grad norm: 54271.546875, clipped: 1.0
+epoch: 39, train_batch_id: 100, avg_cost: 271814.40625
+loss: -17479.08984375, grad norm: 58646.328125, clipped: 1.0
+epoch: 39, train_batch_id: 150, avg_cost: 273619.875
+loss: -22720.748046875, grad norm: 57711.3828125, clipped: 1.0
+Finished epoch 39, took 00:08:58 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 265430.59375 +- 422.0804443359375
+Evaluating candidate model on evaluation dataset
+Epoch 39 candidate mean 265982.90625, baseline epoch 38 mean 267962.59375, difference -1979.6875
+p-value: 7.715796611093838e-11
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 40, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 40, train_batch_id: 0, avg_cost: 274093.5625
+loss: -23359.1484375, grad norm: 56853.87109375, clipped: 1.0
+epoch: 40, train_batch_id: 50, avg_cost: 272588.625
+loss: -21595.841796875, grad norm: 56752.20703125, clipped: 1.0
+epoch: 40, train_batch_id: 100, avg_cost: 272183.5625
+loss: -17308.607421875, grad norm: 58011.21875, clipped: 1.0
+epoch: 40, train_batch_id: 150, avg_cost: 273660.1875
+loss: -28824.166015625, grad norm: 60216.77734375, clipped: 1.0
+Finished epoch 40, took 00:09:01 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 265212.0625 +- 429.98529052734375
+Evaluating candidate model on evaluation dataset
+Epoch 40 candidate mean 265587.1875, baseline epoch 39 mean 265792.75, difference -205.5625
+p-value: 0.2691308293731157
+Start train epoch 41, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 41, train_batch_id: 0, avg_cost: 269067.3125
+loss: -12773.4609375, grad norm: 59952.5625, clipped: 1.0
+epoch: 41, train_batch_id: 50, avg_cost: 269897.96875
+loss: -12805.9208984375, grad norm: 54746.296875, clipped: 1.0
+epoch: 41, train_batch_id: 100, avg_cost: 270854.90625
+loss: -18054.865234375, grad norm: 55888.66015625, clipped: 1.0
+epoch: 41, train_batch_id: 150, avg_cost: 268016.75
+loss: -14940.8095703125, grad norm: 59768.03125, clipped: 1.0
+Finished epoch 41, took 00:09:02 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 263328.71875 +- 410.6182556152344
+Evaluating candidate model on evaluation dataset
+Epoch 41 candidate mean 263843.15625, baseline epoch 39 mean 265792.75, difference -1949.59375
+p-value: 1.0857557141793138e-09
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 42, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 42, train_batch_id: 0, avg_cost: 268764.1875
+loss: -18568.625, grad norm: 49358.296875, clipped: 1.0
+epoch: 42, train_batch_id: 50, avg_cost: 271544.9375
+loss: -22263.490234375, grad norm: 53872.16015625, clipped: 1.0
+epoch: 42, train_batch_id: 100, avg_cost: 272403.6875
+loss: -24287.982421875, grad norm: 66301.046875, clipped: 1.0
+epoch: 42, train_batch_id: 150, avg_cost: 268466.3125
+loss: -25892.828125, grad norm: 55547.6640625, clipped: 1.0
+Finished epoch 42, took 00:09:05 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 264134.78125 +- 424.8919982910156
+Evaluating candidate model on evaluation dataset
+Epoch 42 candidate mean 263675.6875, baseline epoch 41 mean 263164.03125, difference 511.65625
+Start train epoch 43, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 43, train_batch_id: 0, avg_cost: 270818.53125
+loss: -23540.568359375, grad norm: 57228.4453125, clipped: 1.0
+epoch: 43, train_batch_id: 50, avg_cost: 267976.09375
+loss: -13457.4404296875, grad norm: 47416.44140625, clipped: 1.0
+epoch: 43, train_batch_id: 100, avg_cost: 271960.59375
+loss: -28614.294921875, grad norm: 60038.16015625, clipped: 1.0
+epoch: 43, train_batch_id: 150, avg_cost: 272444.0
+loss: -17950.7421875, grad norm: 55839.7734375, clipped: 1.0
+Finished epoch 43, took 00:09:00 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 263718.9375 +- 420.721923828125
+Evaluating candidate model on evaluation dataset
+Epoch 43 candidate mean 263058.1875, baseline epoch 41 mean 263164.03125, difference -105.84375
+p-value: 0.36307032772506204
+Start train epoch 44, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 44, train_batch_id: 0, avg_cost: 270856.46875
+loss: -23934.333984375, grad norm: 57919.09765625, clipped: 1.0
+epoch: 44, train_batch_id: 50, avg_cost: 273648.75
+loss: -23643.34375, grad norm: 53205.859375, clipped: 1.0
+epoch: 44, train_batch_id: 100, avg_cost: 271512.4375
+loss: -19901.583984375, grad norm: 55187.4296875, clipped: 1.0
+epoch: 44, train_batch_id: 150, avg_cost: 270018.625
+loss: -20476.96484375, grad norm: 58698.08984375, clipped: 1.0
+Finished epoch 44, took 00:09:01 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 262026.3125 +- 421.7783508300781
+Evaluating candidate model on evaluation dataset
+Epoch 44 candidate mean 261850.984375, baseline epoch 41 mean 263164.03125, difference -1313.046875
+p-value: 1.4385091951727952e-05
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 45, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 45, train_batch_id: 0, avg_cost: 268216.75
+loss: -19220.619140625, grad norm: 52084.390625, clipped: 1.0
+epoch: 45, train_batch_id: 50, avg_cost: 270440.1875
+loss: -25837.689453125, grad norm: 56470.3046875, clipped: 1.0
+epoch: 45, train_batch_id: 100, avg_cost: 269922.0
+loss: -23420.029296875, grad norm: 50178.87109375, clipped: 1.0
+epoch: 45, train_batch_id: 150, avg_cost: 269963.78125
+loss: -25784.853515625, grad norm: 62150.12890625, clipped: 1.0
+Finished epoch 45, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 261918.46875 +- 429.91949462890625
+Evaluating candidate model on evaluation dataset
+Epoch 45 candidate mean 262730.15625, baseline epoch 44 mean 262745.375, difference -15.21875
+p-value: 0.4799801310914436
+Start train epoch 46, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 46, train_batch_id: 0, avg_cost: 271068.15625
+loss: -18531.826171875, grad norm: 50678.9453125, clipped: 1.0
+epoch: 46, train_batch_id: 50, avg_cost: 266902.84375
+loss: -13078.171875, grad norm: 45581.5859375, clipped: 1.0
+epoch: 46, train_batch_id: 100, avg_cost: 264701.0
+loss: -13566.3974609375, grad norm: 52170.18359375, clipped: 1.0
+epoch: 46, train_batch_id: 150, avg_cost: 263804.15625
+loss: -13645.9423828125, grad norm: 46079.859375, clipped: 1.0
+Finished epoch 46, took 00:09:05 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 263155.5 +- 413.6373291015625
+Evaluating candidate model on evaluation dataset
+Epoch 46 candidate mean 263383.96875, baseline epoch 44 mean 262745.375, difference 638.59375
+Start train epoch 47, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 47, train_batch_id: 0, avg_cost: 268367.375
+loss: -21486.810546875, grad norm: 50801.046875, clipped: 1.0
+epoch: 47, train_batch_id: 50, avg_cost: 269429.5625
+loss: -20196.330078125, grad norm: 51804.57421875, clipped: 1.0
+epoch: 47, train_batch_id: 100, avg_cost: 270278.65625
+loss: -19377.904296875, grad norm: 57185.37109375, clipped: 1.0
+epoch: 47, train_batch_id: 150, avg_cost: 267666.34375
+loss: -16574.94140625, grad norm: 57932.8828125, clipped: 1.0
+Finished epoch 47, took 00:09:00 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 262093.453125 +- 409.2900390625
+Evaluating candidate model on evaluation dataset
+Epoch 47 candidate mean 262378.46875, baseline epoch 44 mean 262745.375, difference -366.90625
+p-value: 0.10863194018705204
+Start train epoch 48, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 48, train_batch_id: 0, avg_cost: 269633.3125
+loss: -18355.521484375, grad norm: 48357.3671875, clipped: 1.0
+epoch: 48, train_batch_id: 50, avg_cost: 268220.625
+loss: -15351.361328125, grad norm: 51462.578125, clipped: 1.0
+epoch: 48, train_batch_id: 100, avg_cost: 268350.28125
+loss: -23161.91796875, grad norm: 59342.93359375, clipped: 1.0
+epoch: 48, train_batch_id: 150, avg_cost: 267126.5
+loss: -13968.921875, grad norm: 53476.66015625, clipped: 1.0
+Finished epoch 48, took 00:09:02 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 260145.6875 +- 412.37890625
+Evaluating candidate model on evaluation dataset
+Epoch 48 candidate mean 260094.171875, baseline epoch 44 mean 262745.375, difference -2651.203125
+p-value: 1.288061864363487e-19
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 49, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 49, train_batch_id: 0, avg_cost: 264473.34375
+loss: -17641.001953125, grad norm: 43015.62890625, clipped: 1.0
+epoch: 49, train_batch_id: 50, avg_cost: 266401.875
+loss: -18282.083984375, grad norm: 54033.28515625, clipped: 1.0
+epoch: 49, train_batch_id: 100, avg_cost: 265557.1875
+loss: -18135.06640625, grad norm: 57126.38671875, clipped: 1.0
+epoch: 49, train_batch_id: 150, avg_cost: 266454.5
+loss: -21068.30078125, grad norm: 53594.140625, clipped: 1.0
+Finished epoch 49, took 00:09:02 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 260016.90625 +- 407.49066162109375
+Evaluating candidate model on evaluation dataset
+Epoch 49 candidate mean 260602.34375, baseline epoch 48 mean 260108.390625, difference 493.953125
+Start train epoch 50, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 50, train_batch_id: 0, avg_cost: 263449.0625
+loss: -10216.216796875, grad norm: 49390.15625, clipped: 1.0
+epoch: 50, train_batch_id: 50, avg_cost: 264947.28125
+loss: -19347.271484375, grad norm: 41838.6328125, clipped: 1.0
+epoch: 50, train_batch_id: 100, avg_cost: 265399.75
+loss: -17314.45703125, grad norm: 50965.66796875, clipped: 1.0
+epoch: 50, train_batch_id: 150, avg_cost: 266411.1875
+loss: -22047.45703125, grad norm: 48621.23046875, clipped: 1.0
+Finished epoch 50, took 00:09:01 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 260155.640625 +- 408.9763488769531
+Evaluating candidate model on evaluation dataset
+Epoch 50 candidate mean 260469.515625, baseline epoch 48 mean 260108.390625, difference 361.125
+Start train epoch 51, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 51, train_batch_id: 0, avg_cost: 265567.9375
+loss: -21183.8203125, grad norm: 54635.5546875, clipped: 1.0
+epoch: 51, train_batch_id: 50, avg_cost: 265788.75
+loss: -12850.9951171875, grad norm: 51108.25390625, clipped: 1.0
+epoch: 51, train_batch_id: 100, avg_cost: 265141.78125
+loss: -19995.662109375, grad norm: 50332.46875, clipped: 1.0
+epoch: 51, train_batch_id: 150, avg_cost: 263343.5625
+loss: -13773.0078125, grad norm: 47310.31640625, clipped: 1.0
+Finished epoch 51, took 00:08:57 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 259111.421875 +- 397.27227783203125
+Evaluating candidate model on evaluation dataset
+Epoch 51 candidate mean 258552.578125, baseline epoch 48 mean 260108.390625, difference -1555.8125
+p-value: 2.733329236845748e-08
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 52, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 52, train_batch_id: 0, avg_cost: 266962.0
+loss: -19724.01953125, grad norm: 45919.5625, clipped: 1.0
+epoch: 52, train_batch_id: 50, avg_cost: 264801.9375
+loss: -14475.375, grad norm: 45606.98828125, clipped: 1.0
+epoch: 52, train_batch_id: 100, avg_cost: 263230.6875
+loss: -18504.244140625, grad norm: 45570.52734375, clipped: 1.0
+epoch: 52, train_batch_id: 150, avg_cost: 266825.0
+loss: -22247.603515625, grad norm: 54575.3828125, clipped: 1.0
+Finished epoch 52, took 00:08:57 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 258385.515625 +- 395.1222839355469
+Evaluating candidate model on evaluation dataset
+Epoch 52 candidate mean 259568.359375, baseline epoch 51 mean 259277.21875, difference 291.140625
+Start train epoch 53, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 53, train_batch_id: 0, avg_cost: 263498.1875
+loss: -14359.46875, grad norm: 44733.90234375, clipped: 1.0
+epoch: 53, train_batch_id: 50, avg_cost: 263610.09375
+loss: -18989.787109375, grad norm: 52830.28125, clipped: 1.0
+epoch: 53, train_batch_id: 100, avg_cost: 263892.5
+loss: -13916.40625, grad norm: 50994.76953125, clipped: 1.0
+epoch: 53, train_batch_id: 150, avg_cost: 265692.0
+loss: -14205.4052734375, grad norm: 48992.07421875, clipped: 1.0
+Finished epoch 53, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 257043.859375 +- 387.66680908203125
+Evaluating candidate model on evaluation dataset
+Epoch 53 candidate mean 257807.9375, baseline epoch 51 mean 259277.21875, difference -1469.28125
+p-value: 3.149497643208934e-08
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 54, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 54, train_batch_id: 0, avg_cost: 264038.25
+loss: -16857.689453125, grad norm: 46611.6953125, clipped: 1.0
+epoch: 54, train_batch_id: 50, avg_cost: 262716.6875
+loss: -20799.326171875, grad norm: 47643.8046875, clipped: 1.0
+epoch: 54, train_batch_id: 100, avg_cost: 263417.34375
+loss: -15236.4501953125, grad norm: 48806.5703125, clipped: 1.0
+epoch: 54, train_batch_id: 150, avg_cost: 264905.46875
+loss: -19862.837890625, grad norm: 51428.4609375, clipped: 1.0
+Finished epoch 54, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 257115.609375 +- 386.0224609375
+Evaluating candidate model on evaluation dataset
+Epoch 54 candidate mean 257092.703125, baseline epoch 53 mean 257623.5, difference -530.796875
+p-value: 0.021818533835791732
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 55, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 55, train_batch_id: 0, avg_cost: 264479.875
+loss: -18756.576171875, grad norm: 47743.34765625, clipped: 1.0
+epoch: 55, train_batch_id: 50, avg_cost: 263042.625
+loss: -21230.69921875, grad norm: 41321.34765625, clipped: 1.0
+epoch: 55, train_batch_id: 100, avg_cost: 261393.78125
+loss: -13848.5810546875, grad norm: 45234.91015625, clipped: 1.0
+epoch: 55, train_batch_id: 150, avg_cost: 264370.3125
+loss: -18125.20703125, grad norm: 45208.21484375, clipped: 1.0
+Finished epoch 55, took 00:09:02 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 256780.953125 +- 389.51806640625
+Evaluating candidate model on evaluation dataset
+Epoch 55 candidate mean 256258.265625, baseline epoch 54 mean 257022.140625, difference -763.875
+p-value: 0.002047643501243011
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 56, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 56, train_batch_id: 0, avg_cost: 263960.625
+loss: -20113.744140625, grad norm: 44026.2109375, clipped: 1.0
+epoch: 56, train_batch_id: 50, avg_cost: 262803.5625
+loss: -16671.39453125, grad norm: 44048.22265625, clipped: 1.0
+epoch: 56, train_batch_id: 100, avg_cost: 262684.71875
+loss: -18450.296875, grad norm: 50868.77734375, clipped: 1.0
+epoch: 56, train_batch_id: 150, avg_cost: 260680.859375
+loss: -18192.09375, grad norm: 46991.10546875, clipped: 1.0
+Finished epoch 56, took 00:08:58 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 255839.46875 +- 398.92388916015625
+Evaluating candidate model on evaluation dataset
+Epoch 56 candidate mean 256135.1875, baseline epoch 55 mean 257334.296875, difference -1199.109375
+p-value: 6.798202235061384e-06
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 57, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 57, train_batch_id: 0, avg_cost: 262322.5
+loss: -20790.88671875, grad norm: 43921.9921875, clipped: 1.0
+epoch: 57, train_batch_id: 50, avg_cost: 259354.375
+loss: -13279.1435546875, grad norm: 47843.0, clipped: 1.0
+epoch: 57, train_batch_id: 100, avg_cost: 262376.59375
+loss: -22043.91015625, grad norm: 46840.94921875, clipped: 1.0
+epoch: 57, train_batch_id: 150, avg_cost: 262698.3125
+loss: -21993.248046875, grad norm: 51583.77734375, clipped: 1.0
+Finished epoch 57, took 00:08:58 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 255486.96875 +- 383.1263427734375
+Evaluating candidate model on evaluation dataset
+Epoch 57 candidate mean 255347.421875, baseline epoch 56 mean 256226.015625, difference -878.59375
+p-value: 0.0003609219543484083
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 58, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 58, train_batch_id: 0, avg_cost: 264434.96875
+loss: -17254.072265625, grad norm: 44681.44921875, clipped: 1.0
+epoch: 58, train_batch_id: 50, avg_cost: 262562.5625
+loss: -22425.12890625, grad norm: 48402.10546875, clipped: 1.0
+epoch: 58, train_batch_id: 100, avg_cost: 261235.09375
+loss: -21984.701171875, grad norm: 48384.26953125, clipped: 1.0
+epoch: 58, train_batch_id: 150, avg_cost: 262752.8125
+loss: -12468.1904296875, grad norm: 49606.6875, clipped: 1.0
+Finished epoch 58, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 255551.8125 +- 380.6048583984375
+Evaluating candidate model on evaluation dataset
+Epoch 58 candidate mean 254931.390625, baseline epoch 57 mean 255038.8125, difference -107.421875
+p-value: 0.3375503375531997
+Start train epoch 59, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 59, train_batch_id: 0, avg_cost: 260468.6875
+loss: -18412.525390625, grad norm: 49113.078125, clipped: 1.0
+epoch: 59, train_batch_id: 50, avg_cost: 262905.5625
+loss: -15146.4091796875, grad norm: 42365.46875, clipped: 1.0
+epoch: 59, train_batch_id: 100, avg_cost: 262307.75
+loss: -17733.779296875, grad norm: 42261.2109375, clipped: 1.0
+epoch: 59, train_batch_id: 150, avg_cost: 260867.828125
+loss: -13572.8828125, grad norm: 47663.53515625, clipped: 1.0
+Finished epoch 59, took 00:09:01 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 254321.953125 +- 380.0109558105469
+Evaluating candidate model on evaluation dataset
+Epoch 59 candidate mean 253851.890625, baseline epoch 57 mean 255038.8125, difference -1186.921875
+p-value: 1.2162868440760011e-06
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 60, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 60, train_batch_id: 0, avg_cost: 259709.875
+loss: -16892.583984375, grad norm: 48566.109375, clipped: 1.0
+epoch: 60, train_batch_id: 50, avg_cost: 263407.1875
+loss: -19301.208984375, grad norm: 44477.69140625, clipped: 1.0
+epoch: 60, train_batch_id: 100, avg_cost: 261471.484375
+loss: -17702.541015625, grad norm: 51867.13671875, clipped: 1.0
+epoch: 60, train_batch_id: 150, avg_cost: 260830.46875
+loss: -20641.701171875, grad norm: 47209.19140625, clipped: 1.0
+Finished epoch 60, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 254674.03125 +- 388.2335510253906
+Evaluating candidate model on evaluation dataset
+Epoch 60 candidate mean 254680.140625, baseline epoch 59 mean 254289.984375, difference 390.15625
+Start train epoch 61, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 61, train_batch_id: 0, avg_cost: 261552.46875
+loss: -18633.31640625, grad norm: 45619.19921875, clipped: 1.0
+epoch: 61, train_batch_id: 50, avg_cost: 259161.1875
+loss: -12605.509765625, grad norm: 39705.11328125, clipped: 1.0
+epoch: 61, train_batch_id: 100, avg_cost: 260119.265625
+loss: -21877.0, grad norm: 43646.61328125, clipped: 1.0
+epoch: 61, train_batch_id: 150, avg_cost: 259720.4375
+loss: -13114.4091796875, grad norm: 46459.44140625, clipped: 1.0
+Finished epoch 61, took 00:08:54 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 254182.4375 +- 367.5572204589844
+Evaluating candidate model on evaluation dataset
+Epoch 61 candidate mean 254091.75, baseline epoch 59 mean 254289.984375, difference -198.234375
+p-value: 0.2105350688438119
+Start train epoch 62, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 62, train_batch_id: 0, avg_cost: 260709.96875
+loss: -14127.6171875, grad norm: 49939.11328125, clipped: 1.0
+epoch: 62, train_batch_id: 50, avg_cost: 260093.21875
+loss: -16085.9599609375, grad norm: 43584.51953125, clipped: 1.0
+epoch: 62, train_batch_id: 100, avg_cost: 260461.46875
+loss: -17557.36328125, grad norm: 50990.4375, clipped: 1.0
+epoch: 62, train_batch_id: 150, avg_cost: 258683.90625
+loss: -15146.9189453125, grad norm: 43210.3671875, clipped: 1.0
+Finished epoch 62, took 00:08:55 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 254281.984375 +- 374.8437805175781
+Evaluating candidate model on evaluation dataset
+Epoch 62 candidate mean 254095.765625, baseline epoch 59 mean 254289.984375, difference -194.21875
+p-value: 0.22142031485377123
+Start train epoch 63, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 63, train_batch_id: 0, avg_cost: 260986.4375
+loss: -16559.095703125, grad norm: 44565.4453125, clipped: 1.0
+epoch: 63, train_batch_id: 50, avg_cost: 262204.0
+loss: -16528.185546875, grad norm: 47459.11328125, clipped: 1.0
+epoch: 63, train_batch_id: 100, avg_cost: 258702.46875
+loss: -18718.318359375, grad norm: 48463.98828125, clipped: 1.0
+epoch: 63, train_batch_id: 150, avg_cost: 259610.375
+loss: -14541.736328125, grad norm: 44003.22265625, clipped: 1.0
+Finished epoch 63, took 00:08:56 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 253227.625 +- 379.0130615234375
+Evaluating candidate model on evaluation dataset
+Epoch 63 candidate mean 253163.09375, baseline epoch 59 mean 254289.984375, difference -1126.890625
+p-value: 4.072920497751084e-06
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 64, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 64, train_batch_id: 0, avg_cost: 260956.46875
+loss: -16312.0693359375, grad norm: 44121.0390625, clipped: 1.0
+epoch: 64, train_batch_id: 50, avg_cost: 259407.1875
+loss: -13926.8408203125, grad norm: 38136.328125, clipped: 1.0
+epoch: 64, train_batch_id: 100, avg_cost: 261112.5625
+loss: -16629.6796875, grad norm: 43534.4609375, clipped: 1.0
+epoch: 64, train_batch_id: 150, avg_cost: 256426.375
+loss: -8797.4580078125, grad norm: 36755.8671875, clipped: 1.0
+Finished epoch 64, took 00:08:57 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 253622.734375 +- 369.575927734375
+Evaluating candidate model on evaluation dataset
+Epoch 64 candidate mean 253311.84375, baseline epoch 63 mean 253419.046875, difference -107.203125
+p-value: 0.3383139462881364
+Start train epoch 65, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 65, train_batch_id: 0, avg_cost: 261916.625
+loss: -22304.927734375, grad norm: 51787.6171875, clipped: 1.0
+epoch: 65, train_batch_id: 50, avg_cost: 261994.421875
+loss: -14994.3701171875, grad norm: 43274.34765625, clipped: 1.0
+epoch: 65, train_batch_id: 100, avg_cost: 259733.75
+loss: -14782.3505859375, grad norm: 44855.5625, clipped: 1.0
+epoch: 65, train_batch_id: 150, avg_cost: 256338.0
+loss: -8909.0673828125, grad norm: 39098.50390625, clipped: 1.0
+Finished epoch 65, took 00:08:56 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 252626.203125 +- 371.3010559082031
+Evaluating candidate model on evaluation dataset
+Epoch 65 candidate mean 252534.78125, baseline epoch 63 mean 253419.046875, difference -884.265625
+p-value: 0.0002366585544302415
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 66, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 66, train_batch_id: 0, avg_cost: 257194.265625
+loss: -15992.7314453125, grad norm: 38906.75, clipped: 1.0
+epoch: 66, train_batch_id: 50, avg_cost: 257251.25
+loss: -15922.3857421875, grad norm: 42741.8828125, clipped: 1.0
+epoch: 66, train_batch_id: 100, avg_cost: 258346.3125
+loss: -12717.41796875, grad norm: 43363.18359375, clipped: 1.0
+epoch: 66, train_batch_id: 150, avg_cost: 259191.34375
+loss: -12452.65625, grad norm: 42668.91796875, clipped: 1.0
+Finished epoch 66, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 254010.578125 +- 374.4164123535156
+Evaluating candidate model on evaluation dataset
+Epoch 66 candidate mean 253426.6875, baseline epoch 65 mean 252771.171875, difference 655.515625
+Start train epoch 67, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 67, train_batch_id: 0, avg_cost: 260571.265625
+loss: -20723.41796875, grad norm: 48398.63671875, clipped: 1.0
+epoch: 67, train_batch_id: 50, avg_cost: 258644.4375
+loss: -14948.4609375, grad norm: 44643.51953125, clipped: 1.0
+epoch: 67, train_batch_id: 100, avg_cost: 259823.59375
+loss: -15050.6689453125, grad norm: 43389.109375, clipped: 1.0
+epoch: 67, train_batch_id: 150, avg_cost: 258096.921875
+loss: -18989.396484375, grad norm: 42207.14453125, clipped: 1.0
+Finished epoch 67, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 252620.25 +- 374.88018798828125
+Evaluating candidate model on evaluation dataset
+Epoch 67 candidate mean 252816.859375, baseline epoch 65 mean 252771.171875, difference 45.6875
+Start train epoch 68, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 68, train_batch_id: 0, avg_cost: 254632.375
+loss: -13992.265625, grad norm: 41605.984375, clipped: 1.0
+epoch: 68, train_batch_id: 50, avg_cost: 256979.03125
+loss: -15404.9091796875, grad norm: 45859.5703125, clipped: 1.0
+epoch: 68, train_batch_id: 100, avg_cost: 256708.046875
+loss: -11075.1396484375, grad norm: 43663.0625, clipped: 1.0
+epoch: 68, train_batch_id: 150, avg_cost: 256878.46875
+loss: -13588.2578125, grad norm: 44451.703125, clipped: 1.0
+Finished epoch 68, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 252209.625 +- 378.9398193359375
+Evaluating candidate model on evaluation dataset
+Epoch 68 candidate mean 251596.890625, baseline epoch 65 mean 252771.171875, difference -1174.28125
+p-value: 1.0572756148951197e-06
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 69, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 69, train_batch_id: 0, avg_cost: 256913.875
+loss: -14881.642578125, grad norm: 38092.9921875, clipped: 1.0
+epoch: 69, train_batch_id: 50, avg_cost: 256111.5
+loss: -15337.3662109375, grad norm: 45733.00390625, clipped: 1.0
+epoch: 69, train_batch_id: 100, avg_cost: 258070.96875
+loss: -17960.826171875, grad norm: 41322.03515625, clipped: 1.0
+epoch: 69, train_batch_id: 150, avg_cost: 260352.8125
+loss: -19124.69140625, grad norm: 44108.078125, clipped: 1.0
+Finished epoch 69, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 251197.46875 +- 368.32061767578125
+Evaluating candidate model on evaluation dataset
+Epoch 69 candidate mean 251664.640625, baseline epoch 68 mean 252264.09375, difference -599.453125
+p-value: 0.0075415306939294845
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 70, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 70, train_batch_id: 0, avg_cost: 256774.1875
+loss: -15039.15625, grad norm: 42438.80078125, clipped: 1.0
+epoch: 70, train_batch_id: 50, avg_cost: 256121.0
+loss: -14116.6396484375, grad norm: 36533.953125, clipped: 1.0
+epoch: 70, train_batch_id: 100, avg_cost: 255552.734375
+loss: -15620.8955078125, grad norm: 40883.40234375, clipped: 1.0
+epoch: 70, train_batch_id: 150, avg_cost: 256764.6875
+loss: -13850.541015625, grad norm: 46606.875, clipped: 1.0
+Finished epoch 70, took 00:09:00 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 251069.921875 +- 363.3108215332031
+Evaluating candidate model on evaluation dataset
+Epoch 70 candidate mean 251303.859375, baseline epoch 69 mean 252061.65625, difference -757.796875
+p-value: 0.000538475658238187
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 71, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 71, train_batch_id: 0, avg_cost: 256098.828125
+loss: -18245.943359375, grad norm: 36864.21484375, clipped: 1.0
+epoch: 71, train_batch_id: 50, avg_cost: 257330.8125
+loss: -16854.7265625, grad norm: 44236.57421875, clipped: 1.0
+epoch: 71, train_batch_id: 100, avg_cost: 255763.15625
+loss: -13603.6904296875, grad norm: 45037.34765625, clipped: 1.0
+epoch: 71, train_batch_id: 150, avg_cost: 255690.703125
+loss: -21355.791015625, grad norm: 45790.8984375, clipped: 1.0
+Finished epoch 71, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 250483.296875 +- 370.5760498046875
+Evaluating candidate model on evaluation dataset
+Epoch 71 candidate mean 251263.640625, baseline epoch 70 mean 251371.609375, difference -107.96875
+p-value: 0.3203004732836934
+Start train epoch 72, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 72, train_batch_id: 0, avg_cost: 254817.015625
+loss: -13936.2578125, grad norm: 37918.96875, clipped: 1.0
+epoch: 72, train_batch_id: 50, avg_cost: 254301.09375
+loss: -12347.1826171875, grad norm: 40780.08203125, clipped: 1.0
+epoch: 72, train_batch_id: 100, avg_cost: 256489.84375
+loss: -11915.359375, grad norm: 36732.40234375, clipped: 1.0
+epoch: 72, train_batch_id: 150, avg_cost: 259391.09375
+loss: -17161.46484375, grad norm: 43224.2265625, clipped: 1.0
+Finished epoch 72, took 00:09:04 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 251550.140625 +- 377.7750549316406
+Evaluating candidate model on evaluation dataset
+Epoch 72 candidate mean 252132.734375, baseline epoch 70 mean 251371.609375, difference 761.125
+Start train epoch 73, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 73, train_batch_id: 0, avg_cost: 256658.28125
+loss: -16223.7421875, grad norm: 44461.08984375, clipped: 1.0
+epoch: 73, train_batch_id: 50, avg_cost: 254694.25
+loss: -12832.8505859375, grad norm: 39132.8671875, clipped: 1.0
+epoch: 73, train_batch_id: 100, avg_cost: 257243.890625
+loss: -12363.7353515625, grad norm: 44161.4375, clipped: 1.0
+epoch: 73, train_batch_id: 150, avg_cost: 255940.5625
+loss: -16678.615234375, grad norm: 41315.68359375, clipped: 1.0
+Finished epoch 73, took 00:08:58 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 250160.828125 +- 366.5566711425781
+Evaluating candidate model on evaluation dataset
+Epoch 73 candidate mean 250566.796875, baseline epoch 70 mean 251371.609375, difference -804.8125
+p-value: 0.00022043930009220606
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 74, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 74, train_batch_id: 0, avg_cost: 255727.234375
+loss: -11450.3623046875, grad norm: 34601.89453125, clipped: 1.0
+epoch: 74, train_batch_id: 50, avg_cost: 255786.96875
+loss: -10411.962890625, grad norm: 34894.3125, clipped: 1.0
+epoch: 74, train_batch_id: 100, avg_cost: 256801.75
+loss: -12195.162109375, grad norm: 35613.91796875, clipped: 1.0
+epoch: 74, train_batch_id: 150, avg_cost: 256525.84375
+loss: -18066.95703125, grad norm: 37044.0, clipped: 1.0
+Finished epoch 74, took 00:09:00 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 249960.90625 +- 367.47100830078125
+Evaluating candidate model on evaluation dataset
+Epoch 74 candidate mean 250407.28125, baseline epoch 73 mean 250889.65625, difference -482.375
+p-value: 0.012854423677191248
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 75, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 75, train_batch_id: 0, avg_cost: 255152.84375
+loss: -13920.955078125, grad norm: 41687.78515625, clipped: 1.0
+epoch: 75, train_batch_id: 50, avg_cost: 255475.578125
+loss: -13572.783203125, grad norm: 36235.59375, clipped: 1.0
+epoch: 75, train_batch_id: 100, avg_cost: 256163.25
+loss: -14260.220703125, grad norm: 35624.65234375, clipped: 1.0
+epoch: 75, train_batch_id: 150, avg_cost: 254265.390625
+loss: -13191.986328125, grad norm: 34163.6171875, clipped: 1.0
+Finished epoch 75, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 249148.3125 +- 360.7646789550781
+Evaluating candidate model on evaluation dataset
+Epoch 75 candidate mean 249563.015625, baseline epoch 74 mean 250462.765625, difference -899.75
+p-value: 1.154578696571259e-05
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 76, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 76, train_batch_id: 0, avg_cost: 253104.5625
+loss: -14513.90625, grad norm: 32314.15625, clipped: 1.0
+epoch: 76, train_batch_id: 50, avg_cost: 256764.734375
+loss: -12833.2109375, grad norm: 44057.890625, clipped: 1.0
+epoch: 76, train_batch_id: 100, avg_cost: 257441.46875
+loss: -12121.1240234375, grad norm: 43460.18359375, clipped: 1.0
+epoch: 76, train_batch_id: 150, avg_cost: 255098.609375
+loss: -11632.16015625, grad norm: 41494.05859375, clipped: 1.0
+Finished epoch 76, took 00:08:58 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 249739.53125 +- 377.1310729980469
+Evaluating candidate model on evaluation dataset
+Epoch 76 candidate mean 249251.75, baseline epoch 75 mean 249183.453125, difference 68.296875
+Start train epoch 77, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 77, train_batch_id: 0, avg_cost: 253906.75
+loss: -8621.16015625, grad norm: 34303.84765625, clipped: 1.0
+epoch: 77, train_batch_id: 50, avg_cost: 257224.28125
+loss: -15865.4091796875, grad norm: 52408.6015625, clipped: 1.0
+epoch: 77, train_batch_id: 100, avg_cost: 254784.46875
+loss: -17771.830078125, grad norm: 42656.93359375, clipped: 1.0
+epoch: 77, train_batch_id: 150, avg_cost: 256248.09375
+loss: -14882.2060546875, grad norm: 39843.0234375, clipped: 1.0
+Finished epoch 77, took 00:08:57 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 249782.046875 +- 375.7521057128906
+Evaluating candidate model on evaluation dataset
+Epoch 77 candidate mean 249239.734375, baseline epoch 75 mean 249183.453125, difference 56.28125
+Start train epoch 78, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 78, train_batch_id: 0, avg_cost: 253860.3125
+loss: -14175.2490234375, grad norm: 40604.328125, clipped: 1.0
+epoch: 78, train_batch_id: 50, avg_cost: 253382.875
+loss: -17381.650390625, grad norm: 45131.8515625, clipped: 1.0
+epoch: 78, train_batch_id: 100, avg_cost: 256171.46875
+loss: -11638.123046875, grad norm: 36885.7578125, clipped: 1.0
+epoch: 78, train_batch_id: 150, avg_cost: 255548.53125
+loss: -13896.322265625, grad norm: 40946.4921875, clipped: 1.0
+Finished epoch 78, took 00:08:57 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 248494.03125 +- 364.15374755859375
+Evaluating candidate model on evaluation dataset
+Epoch 78 candidate mean 248080.390625, baseline epoch 75 mean 249183.453125, difference -1103.0625
+p-value: 1.1091528338597259e-07
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 79, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 79, train_batch_id: 0, avg_cost: 251759.578125
+loss: -13716.1142578125, grad norm: 38699.19140625, clipped: 1.0
+epoch: 79, train_batch_id: 50, avg_cost: 255372.953125
+loss: -14758.3623046875, grad norm: 41431.015625, clipped: 1.0
+epoch: 79, train_batch_id: 100, avg_cost: 256031.65625
+loss: -19654.43359375, grad norm: 47602.94921875, clipped: 1.0
+epoch: 79, train_batch_id: 150, avg_cost: 257337.5
+loss: -14192.1591796875, grad norm: 46080.1640625, clipped: 1.0
+Finished epoch 79, took 00:09:07 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 248537.953125 +- 364.9677429199219
+Evaluating candidate model on evaluation dataset
+Epoch 79 candidate mean 248755.828125, baseline epoch 78 mean 248462.71875, difference 293.109375
+Start train epoch 80, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 80, train_batch_id: 0, avg_cost: 253234.484375
+loss: -12463.7900390625, grad norm: 43276.78515625, clipped: 1.0
+epoch: 80, train_batch_id: 50, avg_cost: 256699.65625
+loss: -16955.123046875, grad norm: 41502.6328125, clipped: 1.0
+epoch: 80, train_batch_id: 100, avg_cost: 255520.6875
+loss: -14164.9609375, grad norm: 38732.546875, clipped: 1.0
+epoch: 80, train_batch_id: 150, avg_cost: 254430.5
+loss: -20829.650390625, grad norm: 42180.18359375, clipped: 1.0
+Finished epoch 80, took 00:08:58 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 248728.71875 +- 363.70306396484375
+Evaluating candidate model on evaluation dataset
+Epoch 80 candidate mean 248101.5625, baseline epoch 78 mean 248462.71875, difference -361.15625
+p-value: 0.054797889953756264
+Start train epoch 81, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 81, train_batch_id: 0, avg_cost: 254442.625
+loss: -18085.890625, grad norm: 47542.19921875, clipped: 1.0
+epoch: 81, train_batch_id: 50, avg_cost: 253392.21875
+loss: -10303.6044921875, grad norm: 39654.71875, clipped: 1.0
+epoch: 81, train_batch_id: 100, avg_cost: 254341.65625
+loss: -13245.96875, grad norm: 40213.41796875, clipped: 1.0
+epoch: 81, train_batch_id: 150, avg_cost: 255323.71875
+loss: -20080.12109375, grad norm: 43082.296875, clipped: 1.0
+Finished epoch 81, took 00:09:00 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 248850.484375 +- 360.0888671875
+Evaluating candidate model on evaluation dataset
+Epoch 81 candidate mean 248870.390625, baseline epoch 78 mean 248462.71875, difference 407.671875
+Start train epoch 82, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 82, train_batch_id: 0, avg_cost: 252356.03125
+loss: -12628.5595703125, grad norm: 38812.15625, clipped: 1.0
+epoch: 82, train_batch_id: 50, avg_cost: 251445.40625
+loss: -12174.6357421875, grad norm: 35679.95703125, clipped: 1.0
+epoch: 82, train_batch_id: 100, avg_cost: 255211.625
+loss: -8932.1396484375, grad norm: 39971.2734375, clipped: 1.0
+epoch: 82, train_batch_id: 150, avg_cost: 252463.296875
+loss: -10370.818359375, grad norm: 42109.3984375, clipped: 1.0
+Finished epoch 82, took 00:08:56 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 249287.953125 +- 372.0108337402344
+Evaluating candidate model on evaluation dataset
+Epoch 82 candidate mean 249127.6875, baseline epoch 78 mean 248462.71875, difference 664.96875
+Start train epoch 83, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 83, train_batch_id: 0, avg_cost: 253011.46875
+loss: -16212.4765625, grad norm: 42768.19921875, clipped: 1.0
+epoch: 83, train_batch_id: 50, avg_cost: 253115.125
+loss: -13944.2109375, grad norm: 44192.4765625, clipped: 1.0
+epoch: 83, train_batch_id: 100, avg_cost: 256652.078125
+loss: -18773.685546875, grad norm: 39565.26953125, clipped: 1.0
+epoch: 83, train_batch_id: 150, avg_cost: 251544.75
+loss: -15593.6318359375, grad norm: 45975.56640625, clipped: 1.0
+Finished epoch 83, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 246262.34375 +- 360.8640441894531
+Evaluating candidate model on evaluation dataset
+Epoch 83 candidate mean 246477.859375, baseline epoch 78 mean 248462.71875, difference -1984.859375
+p-value: 6.973017064062433e-18
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 84, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 84, train_batch_id: 0, avg_cost: 251299.671875
+loss: -17414.498046875, grad norm: 39198.765625, clipped: 1.0
+epoch: 84, train_batch_id: 50, avg_cost: 254034.03125
+loss: -18889.1015625, grad norm: 53346.10546875, clipped: 1.0
+epoch: 84, train_batch_id: 100, avg_cost: 252148.3125
+loss: -12775.662109375, grad norm: 37947.1796875, clipped: 1.0
+epoch: 84, train_batch_id: 150, avg_cost: 250734.828125
+loss: -12994.775390625, grad norm: 38027.13671875, clipped: 1.0
+Finished epoch 84, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 245777.546875 +- 358.71734619140625
+Evaluating candidate model on evaluation dataset
+Epoch 84 candidate mean 246363.046875, baseline epoch 83 mean 246841.890625, difference -478.84375
+p-value: 0.008715422477768808
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 85, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 85, train_batch_id: 0, avg_cost: 252433.53125
+loss: -10481.6728515625, grad norm: 35887.51953125, clipped: 1.0
+epoch: 85, train_batch_id: 50, avg_cost: 250056.8125
+loss: -12938.283203125, grad norm: 36286.9296875, clipped: 1.0
+epoch: 85, train_batch_id: 100, avg_cost: 249552.8125
+loss: -11464.3740234375, grad norm: 40875.9765625, clipped: 1.0
+epoch: 85, train_batch_id: 150, avg_cost: 250484.5
+loss: -8945.6962890625, grad norm: 36906.015625, clipped: 1.0
+Finished epoch 85, took 00:08:59 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 245834.140625 +- 365.02325439453125
+Evaluating candidate model on evaluation dataset
+Epoch 85 candidate mean 246091.484375, baseline epoch 84 mean 246117.578125, difference -26.09375
+p-value: 0.44982009790456834
+Start train epoch 86, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 86, train_batch_id: 0, avg_cost: 251727.609375
+loss: -13369.390625, grad norm: 40335.28515625, clipped: 1.0
+epoch: 86, train_batch_id: 50, avg_cost: 252763.609375
+loss: -10554.0546875, grad norm: 42146.29296875, clipped: 1.0
+epoch: 86, train_batch_id: 100, avg_cost: 251409.046875
+loss: -11309.58203125, grad norm: 36726.63671875, clipped: 1.0
+epoch: 86, train_batch_id: 150, avg_cost: 250196.0
+loss: -9701.5810546875, grad norm: 35859.96875, clipped: 1.0
+Finished epoch 86, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 245314.46875 +- 352.8655700683594
+Evaluating candidate model on evaluation dataset
+Epoch 86 candidate mean 245701.953125, baseline epoch 84 mean 246117.578125, difference -415.625
+p-value: 0.029022485865609123
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 87, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 87, train_batch_id: 0, avg_cost: 249989.03125
+loss: -13804.814453125, grad norm: 37493.72265625, clipped: 1.0
+epoch: 87, train_batch_id: 50, avg_cost: 249930.65625
+loss: -13407.4345703125, grad norm: 36149.0, clipped: 1.0
+epoch: 87, train_batch_id: 100, avg_cost: 252266.171875
+loss: -12290.1845703125, grad norm: 37443.890625, clipped: 1.0
+epoch: 87, train_batch_id: 150, avg_cost: 250603.578125
+loss: -10163.9443359375, grad norm: 39893.8828125, clipped: 1.0
+Finished epoch 87, took 00:09:03 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 245133.796875 +- 355.6391296386719
+Evaluating candidate model on evaluation dataset
+Epoch 87 candidate mean 245257.25, baseline epoch 86 mean 245254.515625, difference 2.734375
+Start train epoch 88, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 88, train_batch_id: 0, avg_cost: 251899.65625
+loss: -13138.2783203125, grad norm: 36035.41796875, clipped: 1.0
+epoch: 88, train_batch_id: 50, avg_cost: 249819.5625
+loss: -9837.8037109375, grad norm: 34622.015625, clipped: 1.0
+epoch: 88, train_batch_id: 100, avg_cost: 248463.734375
+loss: -10588.13671875, grad norm: 36222.42578125, clipped: 1.0
+epoch: 88, train_batch_id: 150, avg_cost: 248402.4375
+loss: -13532.921875, grad norm: 40064.0703125, clipped: 1.0
+Finished epoch 88, took 00:09:01 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 244816.90625 +- 354.5776062011719
+Evaluating candidate model on evaluation dataset
+Epoch 88 candidate mean 244606.109375, baseline epoch 86 mean 245254.515625, difference -648.40625
+p-value: 0.0008920244431184653
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 89, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 89, train_batch_id: 0, avg_cost: 250230.515625
+loss: -12500.7646484375, grad norm: 33190.0234375, clipped: 1.0
+epoch: 89, train_batch_id: 50, avg_cost: 248357.3125
+loss: -15470.8330078125, grad norm: 42326.51171875, clipped: 1.0
+epoch: 89, train_batch_id: 100, avg_cost: 250913.40625
+loss: -12331.02734375, grad norm: 36637.16796875, clipped: 1.0
+epoch: 89, train_batch_id: 150, avg_cost: 253261.53125
+loss: -16050.7373046875, grad norm: 40226.52734375, clipped: 1.0
+Finished epoch 89, took 00:09:05 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 245342.84375 +- 363.03680419921875
+Evaluating candidate model on evaluation dataset
+Epoch 89 candidate mean 245420.09375, baseline epoch 88 mean 244907.6875, difference 512.40625
+Start train epoch 90, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 90, train_batch_id: 0, avg_cost: 251798.75
+loss: -14644.6953125, grad norm: 40872.78515625, clipped: 1.0
+epoch: 90, train_batch_id: 50, avg_cost: 248791.96875
+loss: -11061.0517578125, grad norm: 33244.25, clipped: 1.0
+epoch: 90, train_batch_id: 100, avg_cost: 250463.875
+loss: -16087.953125, grad norm: 35628.1953125, clipped: 1.0
+epoch: 90, train_batch_id: 150, avg_cost: 252204.03125
+loss: -16983.611328125, grad norm: 39965.59765625, clipped: 1.0
+Finished epoch 90, took 00:09:01 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 244920.875 +- 364.5067138671875
+Evaluating candidate model on evaluation dataset
+Epoch 90 candidate mean 245148.421875, baseline epoch 88 mean 244907.6875, difference 240.734375
+Start train epoch 91, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 91, train_batch_id: 0, avg_cost: 250014.15625
+loss: -11298.369140625, grad norm: 39927.3984375, clipped: 1.0
+epoch: 91, train_batch_id: 50, avg_cost: 251541.203125
+loss: -15308.5068359375, grad norm: 40005.69140625, clipped: 1.0
+epoch: 91, train_batch_id: 100, avg_cost: 252919.3125
+loss: -16179.2685546875, grad norm: 45451.41796875, clipped: 1.0
+epoch: 91, train_batch_id: 150, avg_cost: 250640.921875
+loss: -11497.3115234375, grad norm: 42847.3828125, clipped: 1.0
+Finished epoch 91, took 00:08:58 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 244916.484375 +- 350.5794677734375
+Evaluating candidate model on evaluation dataset
+Epoch 91 candidate mean 244755.234375, baseline epoch 88 mean 244907.6875, difference -152.453125
+p-value: 0.218143114437859
+Start train epoch 92, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 92, train_batch_id: 0, avg_cost: 249367.53125
+loss: -12518.5654296875, grad norm: 37807.90234375, clipped: 1.0
+epoch: 92, train_batch_id: 50, avg_cost: 252379.8125
+loss: -15425.6767578125, grad norm: 35274.53125, clipped: 1.0
+epoch: 92, train_batch_id: 100, avg_cost: 249788.59375
+loss: -12047.2001953125, grad norm: 34893.87890625, clipped: 1.0
+epoch: 92, train_batch_id: 150, avg_cost: 250406.96875
+loss: -9969.416015625, grad norm: 38787.7734375, clipped: 1.0
+Finished epoch 92, took 00:08:56 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 244516.890625 +- 343.66009521484375
+Evaluating candidate model on evaluation dataset
+Epoch 92 candidate mean 244829.5, baseline epoch 88 mean 244907.6875, difference -78.1875
+p-value: 0.3547823404625634
+Start train epoch 93, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 93, train_batch_id: 0, avg_cost: 249386.0
+loss: -8418.6708984375, grad norm: 35725.484375, clipped: 1.0
+epoch: 93, train_batch_id: 50, avg_cost: 249268.03125
+loss: -12912.5283203125, grad norm: 35570.3359375, clipped: 1.0
+epoch: 93, train_batch_id: 100, avg_cost: 251950.59375
+loss: -8233.7470703125, grad norm: 37770.28125, clipped: 1.0
+epoch: 93, train_batch_id: 150, avg_cost: 250417.015625
+loss: -13897.453125, grad norm: 37110.8125, clipped: 1.0
+Finished epoch 93, took 00:08:56 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 244418.96875 +- 362.5451354980469
+Evaluating candidate model on evaluation dataset
+Epoch 93 candidate mean 244570.875, baseline epoch 88 mean 244907.6875, difference -336.8125
+p-value: 0.04642206927526287
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 94, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 94, train_batch_id: 0, avg_cost: 250301.3125
+loss: -11164.771484375, grad norm: 32786.19140625, clipped: 1.0
+epoch: 94, train_batch_id: 50, avg_cost: 247045.40625
+loss: -9241.3916015625, grad norm: 31166.826171875, clipped: 1.0
+epoch: 94, train_batch_id: 100, avg_cost: 247007.671875
+loss: -9581.4658203125, grad norm: 42850.78125, clipped: 1.0
+epoch: 94, train_batch_id: 150, avg_cost: 250415.53125
+loss: -10484.408203125, grad norm: 36078.16015625, clipped: 1.0
+Finished epoch 94, took 00:08:55 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 244053.40625 +- 356.4329528808594
+Evaluating candidate model on evaluation dataset
+Epoch 94 candidate mean 244110.5, baseline epoch 93 mean 244578.9375, difference -468.4375
+p-value: 0.010769420066464256
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 95, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 95, train_batch_id: 0, avg_cost: 249920.875
+loss: -13508.689453125, grad norm: 37984.74609375, clipped: 1.0
+epoch: 95, train_batch_id: 50, avg_cost: 250561.53125
+loss: -14509.515625, grad norm: 37163.328125, clipped: 1.0
+epoch: 95, train_batch_id: 100, avg_cost: 247106.046875
+loss: -8452.7880859375, grad norm: 38900.61328125, clipped: 1.0
+epoch: 95, train_batch_id: 150, avg_cost: 248322.875
+loss: -10024.55859375, grad norm: 34515.65234375, clipped: 1.0
+Finished epoch 95, took 00:08:57 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 243504.46875 +- 347.2363586425781
+Evaluating candidate model on evaluation dataset
+Epoch 95 candidate mean 243706.265625, baseline epoch 94 mean 244615.625, difference -909.359375
+p-value: 3.15150427265686e-06
+Update baseline
+Evaluating baseline model on evaluation dataset
+Start train epoch 96, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 96, train_batch_id: 0, avg_cost: 250143.875
+loss: -12678.8271484375, grad norm: 30204.041015625, clipped: 1.0
+epoch: 96, train_batch_id: 50, avg_cost: 247752.0
+loss: -12237.111328125, grad norm: 36016.453125, clipped: 1.0
+epoch: 96, train_batch_id: 100, avg_cost: 251123.96875
+loss: -14173.15625, grad norm: 37181.0625, clipped: 1.0
+epoch: 96, train_batch_id: 150, avg_cost: 249063.90625
+loss: -13648.6669921875, grad norm: 38248.4609375, clipped: 1.0
+Finished epoch 96, took 00:08:57 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 243816.25 +- 357.5999450683594
+Evaluating candidate model on evaluation dataset
+Epoch 96 candidate mean 244605.5, baseline epoch 95 mean 244195.015625, difference 410.484375
+Start train epoch 97, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 97, train_batch_id: 0, avg_cost: 248662.390625
+loss: -12389.4619140625, grad norm: 38058.20703125, clipped: 1.0
+epoch: 97, train_batch_id: 50, avg_cost: 250586.96875
+loss: -12441.16796875, grad norm: 42572.89453125, clipped: 1.0
+epoch: 97, train_batch_id: 100, avg_cost: 248090.34375
+loss: -9435.75390625, grad norm: 34627.05859375, clipped: 1.0
+epoch: 97, train_batch_id: 150, avg_cost: 248510.421875
+loss: -8456.375, grad norm: 35878.06640625, clipped: 1.0
+Finished epoch 97, took 00:08:57 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 244026.421875 +- 358.5880126953125
+Evaluating candidate model on evaluation dataset
+Epoch 97 candidate mean 245054.875, baseline epoch 95 mean 244195.015625, difference 859.859375
+Start train epoch 98, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 98, train_batch_id: 0, avg_cost: 247363.078125
+loss: -14455.3828125, grad norm: 38163.6953125, clipped: 1.0
+epoch: 98, train_batch_id: 50, avg_cost: 247850.8125
+loss: -9731.8681640625, grad norm: 33088.80859375, clipped: 1.0
+epoch: 98, train_batch_id: 100, avg_cost: 248550.078125
+loss: -9671.06640625, grad norm: 38369.90234375, clipped: 1.0
+epoch: 98, train_batch_id: 150, avg_cost: 248687.90625
+loss: -11639.7841796875, grad norm: 37124.6796875, clipped: 1.0
+Finished epoch 98, took 00:08:56 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 243080.59375 +- 352.0375061035156
+Evaluating candidate model on evaluation dataset
+Epoch 98 candidate mean 243966.1875, baseline epoch 95 mean 244195.015625, difference -228.828125
+p-value: 0.1286802630891327
+Start train epoch 99, lr=0.0001 for run run_20220219T174526
+Evaluating baseline on dataset...
+epoch: 99, train_batch_id: 0, avg_cost: 246689.0
+loss: -12159.4560546875, grad norm: 34788.17578125, clipped: 1.0
+epoch: 99, train_batch_id: 50, avg_cost: 246317.296875
+loss: -8685.41796875, grad norm: 33985.51171875, clipped: 1.0
+epoch: 99, train_batch_id: 100, avg_cost: 248323.0
+loss: -11952.7626953125, grad norm: 37167.53515625, clipped: 1.0
+epoch: 99, train_batch_id: 150, avg_cost: 248699.640625
+loss: -10661.904296875, grad norm: 36786.484375, clipped: 1.0
+Finished epoch 99, took 00:08:55 s
+Saving model and state...
+Validating...
+Validation overall avg_cost: 244689.140625 +- 365.8170166015625
+Evaluating candidate model on evaluation dataset
+Epoch 99 candidate mean 245770.859375, baseline epoch 95 mean 244195.015625, difference 1575.84375
