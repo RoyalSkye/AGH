@@ -4,26 +4,25 @@ This repository contains the implementations of our papers studying *Airport Gro
 
 * **Learning Large Neighborhood Search for Vehicle Routing in Airport Ground Handling**
 
-  <p align="center">
+<p align="center">
   	<a href="https://royalskye.github.io">Jianan Zhou</a>, <a href="https://wxy1427.github.io">Yaoxin Wu</a>, <a href="https://zhiguangcaosg.github.io">Zhiguang Cao</a>, <a href="https://songwenas12.github.io">Wen Song</a>, <a href="https://personal.ntu.edu.sg/zhangj">Jie Zhang</a>, <a href="https://zhenghuantu.github.io">Zhenghua Chen</a></p>
 
-  <p align="center">
-      <a href="https://arxiv.org/abs/2302.13797"><img src="https://img.shields.io/badge/Download-PDF-green" alt="Paper"></a>
-      <a href="https://ieeexplore.ieee.org/document/10054476"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TKDE&color=red"></a>
+<p align="center">
+      <a href="https://arxiv.org/abs/2302.13797"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>
+      <a href="https://doi.org/10.1109/TKDE.2023.3249799"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TKDE&color=red"></a>
     	<a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
   </p>
 
 * **Neural Airport Ground Handling**
 
-  <p align="center">
+<p align="center">
   	<a href="https://wxy1427.github.io">Yaoxin Wu*</a>, <a href="https://royalskye.github.io">Jianan Zhou*</a>, Yunwen Xia, Xianli Zhang, <a href="https://zhiguangcaosg.github.io">Zhiguang Cao</a>, <a href="https://personal.ntu.edu.sg/zhangj">Jie Zhang</a></p>
-  
-  <p align="center">
-      <a href=""><img src="https://img.shields.io/badge/Download-PDF-green" alt="Paper"></a>
-      <a href=""><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TITS&color=red"></a>
+
+<p align="center">
+      <a href="https://arxiv.org/abs/2303.02442"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>
+      <a href="https://doi.org/10.1109/TITS.2023.3253552"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TITS&color=red"></a>
     	<a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
   </p>
-
 *Note: These works were done in 2021 and 2022, respectively. Based on our experiments, we recommend building upon the code of the second work for further research.*
 
 ## Overview
@@ -63,6 +62,7 @@ title       = {Learning Large Neighborhood Search for Vehicle Routing in Airport
 author      = {Jianan Zhou and Yaoxin Wu and Zhiguang Cao and Wen Song and Jie Zhang and Zhenghua Chen},
 journal     = {IEEE Transactions on Knowledge and Data Engineering},
 year        = {2023},
+doi         = {10.1109/TKDE.2023.3249799},
 publisher   = {IEEE}
 }
 ```
@@ -73,6 +73,7 @@ title       = {Neural Airport Ground Handling},
 author      = {Yaoxin Wu and Jianan Zhou and Yunwen Xia and Xianli Zhang and Zhiguang Cao and Jie Zhang},
 journal     = {IEEE Transactions on Intelligent Transportation Systems},
 year        = {2023},
+doi         = {10.1109/TITS.2023.3253552},
 publisher   = {IEEE}
 }
 ```

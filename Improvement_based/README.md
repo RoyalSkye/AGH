@@ -1,8 +1,8 @@
 <h2 align="center">Learning Large Neighborhood Search for Vehicle Routing in Airport Ground Handling</h2>
 
 <p align="center">
-    <a href="https://arxiv.org/abs/2302.13797"><img src="https://img.shields.io/badge/Download-PDF-green" alt="Paper"></a>
-    <a href="https://ieeexplore.ieee.org/document/10054476"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TKDE&color=red"></a>
+    <a href="https://arxiv.org/abs/2302.13797"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>
+    <a href="https://doi.org/10.1109/TKDE.2023.3249799"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TKDE&color=red"></a>
     <a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
 </p>
 
@@ -18,7 +18,7 @@ We propose a learning-based improvement framework to solve large-scale *Airport 
 
 ## Dependencies
 
-See environment.yml for more details.
+See [environment.yml](https://github.com/RoyalSkye/AGH/blob/main/Improvement_based/environment.yml) for more details.
 
 * Python >= 3.7
 * Pytorch >= 1.5
@@ -78,6 +78,7 @@ title       = {Learning Large Neighborhood Search for Vehicle Routing in Airport
 author      = {Jianan Zhou and Yaoxin Wu and Zhiguang Cao and Wen Song and Jie Zhang and Zhenghua Chen},
 journal     = {IEEE Transactions on Knowledge and Data Engineering},
 year        = {2023},
+doi         = {10.1109/TKDE.2023.3249799},
 publisher   = {IEEE}
 }
 ```

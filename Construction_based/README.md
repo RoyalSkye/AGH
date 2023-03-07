@@ -1,8 +1,8 @@
 <h1 align="center">Neural Airport Ground Handling</h1>
 
 <p align="center">
-    <a href=""><img src="https://img.shields.io/badge/Download-PDF-green" alt="Paper"></a>
-    <a href=""><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TITS&color=red"></a>
+    <a href="https://arxiv.org/abs/2303.02442"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>
+    <a href="https://doi.org/10.1109/TITS.2023.3253552"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TITS&color=red"></a>
     <a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
 </p>
 
@@ -18,7 +18,7 @@ We propose a learning-based construction framework to solve *Airport Ground Hand
 
 ## Dependencies
 
-See environment.yml for more details.
+See [environment.yml](https://github.com/RoyalSkye/AGH/blob/main/Construction_based/environment.yml) for more details.
 
 * Python >= 3.8
 * Pytorch >= 1.7
@@ -74,6 +74,7 @@ title       = {Neural Airport Ground Handling},
 author      = {Yaoxin Wu and Jianan Zhou and Yunwen Xia and Xianli Zhang and Zhiguang Cao and Jie Zhang},
 journal     = {IEEE Transactions on Intelligent Transportation Systems},
 year        = {2023},
+doi         = {10.1109/TITS.2023.3253552},
 publisher   = {IEEE}
 }
 ```
