@@ -1,9 +1,7 @@
 <h2 align="center">Learning Large Neighborhood Search for Vehicle Routing in Airport Ground Handling</h2>
 
 <p align="center">
-    <a href="https://arxiv.org/abs/2302.13797"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>
-    <a href="https://doi.org/10.1109/TKDE.2023.3249799"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TKDE&color=red"></a>
-    <a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
+    <a href="https://arxiv.org/abs/2302.13797"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://doi.org/10.1109/TKDE.2023.3249799"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TKDE&color=red"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
 </p>
 
 The implementation of *IEEE Transactions on Knowledge and Data Engineering (TKDE) - "Learning Large Neighborhood Search for Vehicle Routing in Airport Ground Handling"* by [Jianan Zhou](https://royalskye.github.io), [Yaoxin Wu](https://wxy1427.github.io), [Zhiguang Cao](https://zhiguangcaosg.github.io), [Wen Song](https://songwenas12.github.io), [Jie Zhang](https://personal.ntu.edu.sg/zhangj), [Zhenghua Chen](https://zhenghuantu.github.io).

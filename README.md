@@ -8,9 +8,7 @@ This repository contains the implementations of our papers studying *Airport Gro
   	<a href="https://royalskye.github.io">Jianan Zhou</a>, <a href="https://wxy1427.github.io">Yaoxin Wu</a>, <a href="https://zhiguangcaosg.github.io">Zhiguang Cao</a>, <a href="https://songwenas12.github.io">Wen Song</a>, <a href="https://personal.ntu.edu.sg/zhangj">Jie Zhang</a>, <a href="https://zhenghuantu.github.io">Zhenghua Chen</a></p>
 
 <p align="center">
-      <a href="https://arxiv.org/abs/2302.13797"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>
-      <a href="https://doi.org/10.1109/TKDE.2023.3249799"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TKDE&color=red"></a>
-    	<a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
+      <a href="https://arxiv.org/abs/2302.13797"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://doi.org/10.1109/TKDE.2023.3249799"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TKDE&color=red"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
   </p>
 
 * **Neural Airport Ground Handling**
@@ -19,9 +17,7 @@ This repository contains the implementations of our papers studying *Airport Gro
   	<a href="https://wxy1427.github.io">Yaoxin Wu*</a>, <a href="https://royalskye.github.io">Jianan Zhou*</a>, Yunwen Xia, Xianli Zhang, <a href="https://zhiguangcaosg.github.io">Zhiguang Cao</a>, <a href="https://personal.ntu.edu.sg/zhangj">Jie Zhang</a></p>
 
 <p align="center">
-      <a href="https://arxiv.org/abs/2303.02442"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>
-      <a href="https://doi.org/10.1109/TITS.2023.3253552"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TITS&color=red"></a>
-    	<a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
+      <a href="https://arxiv.org/abs/2303.02442"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://doi.org/10.1109/TITS.2023.3253552"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TITS&color=red"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
   </p>
 *Note: These works were done in 2021 and 2022, respectively. Based on our experiments, we recommend building upon the code of the second work for further research.*
 

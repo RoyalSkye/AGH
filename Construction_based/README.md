@@ -1,9 +1,7 @@
 <h1 align="center">Neural Airport Ground Handling</h1>
 
 <p align="center">
-    <a href="https://arxiv.org/abs/2303.02442"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>
-    <a href="https://doi.org/10.1109/TITS.2023.3253552"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TITS&color=red"></a>
-    <a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
+    <a href="https://arxiv.org/abs/2303.02442"><img src="https://img.shields.io/badge/Download-PDF-brightgreen" alt="Paper"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://doi.org/10.1109/TITS.2023.3253552"><img alt="License" src="https://img.shields.io/static/v1?label=Pub&message=IEEE TITS&color=red"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/RoyalSkye/AGH/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue" alt="Paper"></a>
 </p>
 
 The implementation of *IEEE Transactions on Intelligent Transportation Systems (TITS) - "Neural Airport Ground Handling"* by [Yaoxin Wu*](https://wxy1427.github.io), [Jianan Zhou*](https://royalskye.github.io), Yunwen Xia, Xianli Zhang, [Zhiguang Cao](https://zhiguangcaosg.github.io), [Jie Zhang](https://personal.ntu.edu.sg/zhangj).
